@@ -11,7 +11,7 @@ class AdminUIServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->commands([
             AdminUIInstall::class,
@@ -54,7 +54,7 @@ class AdminUIServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
 
     }

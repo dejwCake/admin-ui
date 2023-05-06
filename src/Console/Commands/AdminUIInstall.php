@@ -1,6 +1,7 @@
 <?php namespace Brackets\AdminUI\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 
@@ -23,9 +24,11 @@ class AdminUIInstall extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @param Filesystem $files
+     * @return void
+     * @throws FileNotFoundException
      */
-    public function handle(Filesystem $files)
+    public function handle(Filesystem $files): void
     {
         $this->info('Installing package brackets/admin-ui');
 
@@ -58,8 +61,10 @@ class AdminUIInstall extends Command
 
     /**
      * @param Filesystem $files
+     * @throws FileNotFoundException
      */
-    private function frontendAdjustments(Filesystem $files) {
+    private function frontendAdjustments(Filesystem $files): void
+    {
         // webpack
         if (File::exists(base_path('webpack.mix.js')) && $this->appendIfNotExists('webpack.mix.js', '|resources/js/admin|', "\n\n" . $files->get(__DIR__ . '/../../../install-stubs/partial-webpack.mix.js'))) {
             $this->info('Webpack configuration updated');
