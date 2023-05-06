@@ -3,17 +3,12 @@
 namespace Brackets\AdminUI\Tests;
 
 use Brackets\AdminUI\AdminUIServiceProvider;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\BrowserKit\TestCase as OrchestraBrowser;
-use Brackets\AdminTranslations\Test\Exceptions\Handler;
-use Exception;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 
 abstract class TestCase extends OrchestraBrowser
 {
-    /** @var \Brackets\AdminTranslations\Translation */
-    protected $languageLine;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -28,30 +23,14 @@ abstract class TestCase extends OrchestraBrowser
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             AdminUIServiceProvider::class,
         ];
-    }
-
-    public function disableExceptionHandling()
-    {
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
-            public function __construct() {}
-
-            public function report(Exception $e)
-            {
-                // no-op
-            }
-
-            public function render($request, Exception $e) {
-                throw $e;
-            }
-        });
     }
 }
