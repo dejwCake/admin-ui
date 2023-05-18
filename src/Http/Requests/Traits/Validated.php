@@ -12,7 +12,9 @@ trait Validated
     /** @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification */
     protected ?array $validated = null;
 
-    abstract protected function filterValidated(array $validated): array;
+    protected function filterValidated(array $validated): array {
+        return $validated;
+    }
 
     public function getValidated(): array
     {
