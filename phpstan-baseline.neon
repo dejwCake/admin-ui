@@ -1,2 +1,26 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			count: 1
+			path: src/Http/Requests/Sanitizers/BooleanValue.php
+
+		-
+			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			count: 1
+			path: src/Http/Requests/Sanitizers/StringToArray.php
+
+		-
+			message: "#^Out of 15 possible return types, only 14 \\- 93\\.3 %% actually have it\\. Add more return types to get over 99 %%$#"
+			count: 1
+			path: src/Http/Requests/Sanitizers/StringToArray.php
+
+		-
+			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			count: 1
+			path: src/WysiwygMedia.php
+
+		-
+			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			count: 1
+			path: tests/TestCase.php

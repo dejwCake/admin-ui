@@ -49,7 +49,7 @@ class AdminUIInstall extends Command
     {
         $content = File::get($fileName);
         if (preg_match($ifExistsRegex, $content)) {
-            return;
+            return false;
         }
 
         return File::put($fileName, $content . $append);
