@@ -45,13 +45,14 @@ class AdminUIInstall extends Command
         $this->info('Package brackets/admin-ui installed');
     }
 
-    private function appendIfNotExists(string $fileName, string $ifExistsRegex, string $append): int|bool {
+    private function appendIfNotExists(string $fileName, string $ifExistsRegex, string $append): int|bool
+    {
         $content = File::get($fileName);
         if (preg_match($ifExistsRegex, $content)) {
             return;
         }
 
-        return File::put($fileName, $content.$append);
+        return File::put($fileName, $content . $append);
     }
 
     /**
@@ -60,7 +61,14 @@ class AdminUIInstall extends Command
     private function frontendAdjustments(Filesystem $files): void
     {
         // webpack
-        if (File::exists(base_path('webpack.mix.js')) && $this->appendIfNotExists('webpack.mix.js', '|resources/js/admin|', "\n\n" . $files->get(__DIR__ . '/../../../install-stubs/partial-webpack.mix.js'))) {
+        if (
+            File::exists(base_path('webpack.mix.js'))
+            && $this->appendIfNotExists(
+                'webpack.mix.js',
+                '|resources/js/admin|',
+                "\n\n" . $files->get(__DIR__ . '/../../../install-stubs/partial-webpack.mix.js'),
+            )
+        ) {
             $this->info('Webpack configuration updated');
         }
 
@@ -70,7 +78,7 @@ class AdminUIInstall extends Command
         $packageJson = $files->get($packageJsonFile);
         $packageJsonContent = json_decode($packageJson, true);
 
-        if (!File::exists('webpack.mix.js')){
+        if (!File::exists('webpack.mix.js')) {
             $packageJsonContent['scripts']['craftable-dev'] = 'mix';
             $packageJsonContent['scripts']['craftable-watch'] = 'mix watch';
             $packageJsonContent['scripts']['craftable-prod'] = 'mix --production';

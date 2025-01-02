@@ -8,23 +8,23 @@ use Brackets\AdminUI\WysiwygMedia;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
-trait HasWysiwygMediaTrait {
-
+trait HasWysiwygMediaTrait
+{
     public static function bootHasWysiwygMediaTrait(): void
     {
-        static::saved(function ($model) {
-            $wysiwygMediaIds = (new Collection(request('wysiwygMedia')))->filter(function($wysiwygId){
-                return is_int($wysiwygId);
-            });
-            if($wysiwygMediaIds->isNotEmpty()) {
-                WysiwygMedia::whereIn('id', $wysiwygMediaIds)->get()->each(function($item) use ($model) {
+        static::saved(static function ($model): void {
+            $wysiwygMediaIds = (new Collection(request('wysiwygMedia')))->filter(
+                static fn ($wysiwygId) => is_int($wysiwygId),
+            );
+            if ($wysiwygMediaIds->isNotEmpty()) {
+                WysiwygMedia::whereIn('id', $wysiwygMediaIds)->get()->each(static function ($item) use ($model): void {
                     $model->wysiwygMedia()->save($item);
                 });
             }
         });
 
-        static::deleted(function($model) {
-            $model->wysiwygMedia->each(function($item){
+        static::deleted(static function ($model): void {
+            $model->wysiwygMedia->each(static function ($item): void {
                 $item->delete();
             });
         });

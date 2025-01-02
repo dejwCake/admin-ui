@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'page_title_suffix' => 'Craftable',
 
@@ -92,7 +94,8 @@ return [
         'choose_translation_to_edit' => 'Choose translation to edit:',
         'manage_translations' => 'Manage translations',
         'more_can_be_managed' => '({{ otherLocales.length }} more can be managed)',
-        'currently_editing_translation' => 'Currently editing {{ this.defaultLocale.toUpperCase() }} (default) translation',
+        'currently_editing_translation'
+            => 'Currently editing {{ this.defaultLocale.toUpperCase() }} (default) translation',
         'hide' => 'Hide Translations',
         'select_an_option' => 'Select an option',
         'select_options' => 'Select options',
@@ -101,15 +104,16 @@ return [
         'created_by' => 'Created by',
         'updated_by' => 'Updated by',
         'created_on' => 'Created on',
-        'updated_on' => 'Updated on'
+        'updated_on' => 'Updated on',
     ],
 
     'placeholder' => [
-        'search' => 'Search'
+        'search' => 'Search',
     ],
 
     'pagination' => [
-        'overview' => 'Displaying items from {{ pagination.state.from }} to {{ pagination.state.to }} of total {{ pagination.state.total }} items.'
+        'overview' => 'Displaying items from {{ pagination.state.from }} to {{ pagination.state.to }}'
+            . ' of total {{ pagination.state.total }} items.',
     ],
 
     'logo' => [
@@ -134,6 +138,6 @@ return [
 
     'footer' => [
         'powered_by' => 'Powered by',
-    ]
+    ],
 
 ];

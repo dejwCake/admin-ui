@@ -12,10 +12,6 @@ trait Validated
     /** @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification */
     protected ?array $validated = null;
 
-    protected function filterValidated(array $validated): array {
-        return $validated;
-    }
-
     public function getValidated(): array
     {
         if ($this->validated === null) {
@@ -24,5 +20,10 @@ trait Validated
         }
 
         return $this->validated;
+    }
+
+    protected function filterValidated(array $validated): array
+    {
+        return $validated;
     }
 }

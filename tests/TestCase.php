@@ -16,18 +16,17 @@ abstract class TestCase extends OrchestraBrowser
         parent::setUp();
 
         // let's define simple routes
-        $this->app['router']->get('/admin/test/index', function(){
-            return view('admin.test.index');
-        });
+        $this->app['router']->get('/admin/test/index', static fn () => view('admin.test.index'));
 
-        File::copyDirectory(__DIR__.'/fixtures/public', public_path());
-        File::copyDirectory(__DIR__.'/fixtures/resources/views', resource_path('views'));
+        File::copyDirectory(__DIR__ . '/fixtures/public', public_path());
+        File::copyDirectory(__DIR__ . '/fixtures/resources/views', resource_path('views'));
     }
 
     /**
      * @param Application $app
      * @return class-string[]
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     protected function getPackageProviders($app): array
     {

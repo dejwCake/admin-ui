@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'page_title_suffix' => 'Craftable',
 
@@ -98,15 +100,16 @@ return [
         'created_by' => 'Vytvoril',
         'updated_by' => 'Aktualizoval',
         'created_on' => 'Vytvorené',
-        'updated_on' => 'Aktualizované'
+        'updated_on' => 'Aktualizované',
     ],
 
     'placeholder' => [
-        'search' => 'Hľadať'
+        'search' => 'Hľadať',
     ],
 
     'pagination' => [
-        'overview' => 'Zobrazujú sa položky od {{ pagination.state.from }} do {{ pagination.state.to }} z celkom {{ pagination.state.total }} položiek.'
+        'overview' => 'Zobrazujú sa položky od {{ pagination.state.from }} do {{ pagination.state.to }}'
+            . ' z celkom {{ pagination.state.total }} položiek.',
     ],
 
     'logo' => [
@@ -130,7 +133,8 @@ return [
     ],
 
     'footer' => [
-        'powered_by' => 'Powered by', // we leave this in english intentionally
-    ]
+        // we leave this in english intentionally
+        'powered_by' => 'Powered by',
+    ],
 
 ];

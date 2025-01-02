@@ -9,19 +9,22 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
-use Illuminate\Support\Facades\File;
 
-class WysiwygMediaUploadController extends BaseController {
-
+class WysiwygMediaUploadController extends BaseController
+{
     public function upload(Request $request): JsonResponse
     {
         // get image from request and check validity
         $temporaryFile = $request->file('fileToUpload');
-        if (!$temporaryFile->isFile() || !in_array($temporaryFile->getMimeType(), ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'])) {
+        if (
+            !$temporaryFile->isFile()
+            || !in_array($temporaryFile->getMimeType(), ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'], true)
+        ) {
             return response()->json([
-                'success' => false
+                'success' => false,
             ]);
         }
 
@@ -32,7 +35,7 @@ class WysiwygMediaUploadController extends BaseController {
         if (!File::isDirectory(Config::get('wysiwyg-media.media_folder'))) {
             File::makeDirectory(Config::get('wysiwyg-media.media_folder'), 0755, true);
         }
-      
+
         // resize and save image
         Image::read($temporaryFile->path())
             ->scaleDown(Config::get('wysiwyg-media.maximum_image_width'))
@@ -48,7 +51,7 @@ class WysiwygMediaUploadController extends BaseController {
         return response()->json([
             'file' => url($savedPath),
             'mediaId' => $wysiwygMedia->id,
-            'success' => true
+            'success' => true,
         ]);
     }
 }
