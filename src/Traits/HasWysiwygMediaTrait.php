@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Brackets\AdminUI\Traits;
 
 use Brackets\AdminUI\WysiwygMedia;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
 trait HasWysiwygMediaTrait {
@@ -29,7 +30,7 @@ trait HasWysiwygMediaTrait {
         });
     }
 
-    public function wysiwygMedia()
+    public function wysiwygMedia(): MorphMany
     {
         return $this->morphMany('Brackets\AdminUI\WysiwygMedia', 'wysiwygable');
     }

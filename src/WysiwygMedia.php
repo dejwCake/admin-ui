@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 
 class WysiwygMedia extends Model
 {
+    /** @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint */
     protected $fillable = ['file_path'];
 
     protected static function boot(): void
