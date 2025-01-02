@@ -1,4 +1,8 @@
-<?php namespace Brackets\AdminUI\Console\Commands;
+<?php
+
+declare(strict_types=1);
+
+namespace Brackets\AdminUI\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -11,6 +15,7 @@ class AdminUIInstall extends Command
      * The name and signature of the console command.
      *
      * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $signature = 'admin-ui:install';
 
@@ -18,14 +23,13 @@ class AdminUIInstall extends Command
      * The console command description.
      *
      * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $description = 'Install a brackets/admin-ui package';
 
     /**
      * Execute the console command.
      *
-     * @param Filesystem $files
-     * @return void
      * @throws FileNotFoundException
      */
     public function handle(Filesystem $files): void
@@ -41,16 +45,7 @@ class AdminUIInstall extends Command
         $this->info('Package brackets/admin-ui installed');
     }
 
-    private function strReplaceInFile($fileName, $ifExistsRegex, $find, $replaceWith) {
-        $content = File::get($fileName);
-        if (preg_match($ifExistsRegex, $content)) {
-            return;
-        }
-
-        return File::put($fileName, str_replace($find, $replaceWith, $content));
-    }
-
-    private function appendIfNotExists($fileName, $ifExistsRegex, $append) {
+    private function appendIfNotExists(string $fileName, string $ifExistsRegex, string $append): int|bool {
         $content = File::get($fileName);
         if (preg_match($ifExistsRegex, $content)) {
             return;
@@ -60,7 +55,6 @@ class AdminUIInstall extends Command
     }
 
     /**
-     * @param Filesystem $files
      * @throws FileNotFoundException
      */
     private function frontendAdjustments(Filesystem $files): void
@@ -74,7 +68,7 @@ class AdminUIInstall extends Command
         $this->info('Changing package.json');
         $packageJsonFile = base_path('package.json');
         $packageJson = $files->get($packageJsonFile);
-        $packageJsonContent = json_decode($packageJson, JSON_OBJECT_AS_ARRAY);
+        $packageJsonContent = json_decode($packageJson, true);
 
         if (!File::exists('webpack.mix.js')){
             $packageJsonContent['scripts']['craftable-dev'] = 'mix';

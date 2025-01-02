@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Brackets\AdminUI\Http\Controllers;
 
 use Brackets\AdminUI\WysiwygMedia;
@@ -7,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Config;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Illuminate\Support\Facades\File;
 
@@ -32,11 +34,8 @@ class WysiwygMediaUploadController extends BaseController {
         }
       
         // resize and save image
-        Image::make($temporaryFile->path())
-            ->resize(Config::get('wysiwyg-media.maximum_image_width'), null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })
+        Image::read($temporaryFile->path())
+            ->scaleDown(Config::get('wysiwyg-media.maximum_image_width'))
             ->save($savedPath);
 
         // optimize image

@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Brackets\AdminUI\Tests\Feature;
 
 use Brackets\AdminUI\Tests\TestCase;
 
 class SimpleAdminTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function test_if_can_display_an_admin_listing()
+    public function testIfCanDisplayAnAdminListing(): void
     {
         $this->visit('/admin/test/index');
 

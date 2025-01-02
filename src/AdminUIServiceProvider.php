@@ -1,4 +1,8 @@
-<?php namespace Brackets\AdminUI;
+<?php
+
+declare(strict_types=1);
+
+namespace Brackets\AdminUI;
 
 use Brackets\AdminUI\Console\Commands\AdminUIInstall;
 use Illuminate\Support\ServiceProvider;
@@ -6,11 +10,6 @@ use Illuminate\Support\Facades\File;
 
 class AdminUIServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot(): void
     {
         $this->commands([
@@ -49,13 +48,8 @@ class AdminUIServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register(): void
     {
-
+        //do nothing
     }
 }

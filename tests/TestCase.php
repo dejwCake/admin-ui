@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Brackets\AdminUI\Tests;
 
 use Brackets\AdminUI\AdminUIServiceProvider;
@@ -24,8 +26,8 @@ abstract class TestCase extends OrchestraBrowser
 
     /**
      * @param Application $app
-     *
-     * @return array
+     * @return class-string[]
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     protected function getPackageProviders($app): array
     {

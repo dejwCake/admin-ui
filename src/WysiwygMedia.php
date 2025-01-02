@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Brackets\AdminUI;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +10,7 @@ use Illuminate\Support\Facades\File;
 
 class WysiwygMedia extends Model
 {
-    protected $fillable = ["file_path"];
+    protected $fillable = ['file_path'];
 
     protected static function boot(): void
     {

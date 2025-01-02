@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Brackets\AdminUI\Traits;
 
 use Brackets\AdminUI\WysiwygMedia;
+use Illuminate\Support\Collection;
 
 trait HasWysiwygMediaTrait {
 
     public static function bootHasWysiwygMediaTrait(): void
     {
         static::saved(function ($model) {
-            $wysiwygMediaIds = collect(request('wysiwygMedia'))->filter(function($wysiwygId){
+            $wysiwygMediaIds = (new Collection(request('wysiwygMedia')))->filter(function($wysiwygId){
                 return is_int($wysiwygId);
             });
             if($wysiwygMediaIds->isNotEmpty()) {
