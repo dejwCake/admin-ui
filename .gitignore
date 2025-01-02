@@ -3,6 +3,6 @@ composer.lock
 .idea/
 .DS_Store
 .phpunit.result.cache
-.phpcs.cache
 .phpunit.cache
+.phpcs.cache
 .phpstan.cache

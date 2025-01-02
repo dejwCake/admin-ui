@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   test:
     image: dejwcake/php8.2:1
