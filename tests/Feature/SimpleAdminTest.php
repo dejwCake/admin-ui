@@ -12,10 +12,10 @@ class SimpleAdminTest extends TestCase
     {
         $this->visit('/admin/test/index');
 
-        $this->assertStringContainsString("<title>Craftable - Craftable</title>", $this->response->getContent());
+        self::assertStringContainsString("<title>Craftable - Craftable</title>", $this->response->getContent());
 
-        $this->assertStringContainsString("Here should be some custom code :)", $this->response->getContent());
+        self::assertStringContainsString("Here should be some custom code :)", $this->response->getContent());
 
-        $this->assertStringContainsString("</html>", $this->response->getContent());
+        self::assertStringContainsString("</html>", $this->response->getContent());
     }
 }
