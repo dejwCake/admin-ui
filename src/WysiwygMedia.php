@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\File;
 class WysiwygMedia extends Model
 {
     /**
-     * @var array<int, string>
+     * @var array<string>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected $fillable = ['file_path'];
+    protected $fillable = [
+        'file_path'
+    ];
 
     protected static function boot(): void
     {

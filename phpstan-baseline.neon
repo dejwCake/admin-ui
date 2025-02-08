@@ -1,26 +1,61 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 2
+			path: install-stubs/config/wysiwyg-media.php
+
+		-
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/BooleanValue.php
 
 		-
-			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/StringToArray.php
 
 		-
-			message: "#^Out of 15 possible return types, only 14 \\- 93\\.3 %% actually have it\\. Add more return types to get over 99 %%$#"
+			message: '#^Out of 15 possible return types, only 14 \- 93\.3 %% actually have it\. Add more return types to get over 99 %%$#'
+			identifier: typeCoverage.returnTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/StringToArray.php
 
 		-
-			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			message: '#^Trait Brackets\\AdminUI\\Http\\Requests\\Traits\\SanitizeBoolean is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Http/Requests/Traits/SanitizeBoolean.php
+
+		-
+			message: '#^Trait Brackets\\AdminUI\\Http\\Requests\\Traits\\Validated is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Http/Requests/Traits/Validated.php
+
+		-
+			message: '#^Trait Brackets\\AdminUI\\Traits\\HasWysiwygMediaTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasWysiwygMediaTrait.php
+
+		-
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/WysiwygMedia.php
 
 		-
-			message: "#^Out of 11 possible param types, only 7 \\- 63\\.6 %% actually have it\\. Add more param types to get over 99 %%$#"
+			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\WysiwygMedia\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/WysiwygMedia.php
+
+		-
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: tests/TestCase.php
