@@ -7,20 +7,14 @@ parameters:
 			path: install-stubs/config/wysiwyg-media.php
 
 		-
-			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/BooleanValue.php
 
 		-
-			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
-			count: 1
-			path: src/Http/Requests/Sanitizers/StringToArray.php
-
-		-
-			message: '#^Out of 15 possible return types, only 14 \- 93\.3 %% actually have it\. Add more return types to get over 99 %%$#'
-			identifier: typeCoverage.returnTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/StringToArray.php
 
@@ -43,7 +37,7 @@ parameters:
 			path: src/Traits/HasWysiwygMediaTrait.php
 
 		-
-			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/WysiwygMedia.php
@@ -55,7 +49,7 @@ parameters:
 			path: src/WysiwygMedia.php
 
 		-
-			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			message: '#^Out of 11 possible param types, only 7 \- 63\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: tests/TestCase.php
