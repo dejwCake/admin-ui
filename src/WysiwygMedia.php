@@ -15,7 +15,7 @@ class WysiwygMedia extends Model
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $fillable = [
-        'file_path'
+        'file_path',
     ];
 
     protected static function boot(): void
