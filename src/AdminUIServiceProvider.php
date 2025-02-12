@@ -44,7 +44,7 @@ class AdminUIServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__ . '/../install-stubs/database/migrations/create_wysiwyg_media_table.php' => database_path(
                         'migrations',
-                    ) . '/2018_07_18_000000_create_wysiwyg_media_table.php',
+                    ) . '/2025_01_01_000000_create_wysiwyg_media_table.php',
                 ], 'migrations');
             }
         }
