@@ -90,10 +90,6 @@ class AdminUIInstall extends Command
             $packageJsonContent['devDependencies']['laravel-mix'] = '^6.0.6';
         }
 
-        if (isset($packageJsonContent['type'])) {
-            unset($packageJsonContent['type']);
-        }
-
         $packageJsonContent['devDependencies']['craftable'] = '^2.1.3';
         $packageJsonContent['devDependencies']['vue-loader'] = '^15.9.8';
         $packageJsonContent['devDependencies']['sass-loader'] = '^8.0.2';
