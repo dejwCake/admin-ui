@@ -16,9 +16,9 @@ class AdminUIServiceProvider extends ServiceProvider
             AdminUIInstall::class,
         ]);
 
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'brackets/admin-ui');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'brackets/admin-ui');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'brackets/admin-ui');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
