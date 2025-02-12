@@ -21,6 +21,7 @@ class AdminUIServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
         if ($this->app->runningInConsole()) {
+            $time = date('His', time());
             $this->publishes([
                 __DIR__ . '/../install-stubs/resources/js/admin' => resource_path('js/admin'),
                 __DIR__ . '/../install-stubs/resources/sass/admin' => resource_path('sass/admin'),
@@ -44,7 +45,7 @@ class AdminUIServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__ . '/../install-stubs/database/migrations/create_wysiwyg_media_table.php' => database_path(
                         'migrations',
-                    ) . '/2025_01_01_000000_create_wysiwyg_media_table.php',
+                    ) . '/2025_01_01_' . $time . '_create_wysiwyg_media_table.php',
                 ], 'migrations');
             }
         }
