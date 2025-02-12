@@ -27,16 +27,21 @@ class AdminUIInstall extends Command
      */
     protected $description = 'Install a brackets/admin-ui package';
 
+    public function __construct(private readonly Filesystem $filesystem)
+    {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      *
      * @throws FileNotFoundException
      */
-    public function handle(Filesystem $files): void
+    public function handle(): void
     {
         $this->info('Installing package brackets/admin-ui');
 
-        $this->frontendAdjustments($files);
+        $this->frontendAdjustments();
 
         $this->call('vendor:publish', [
             '--provider' => "Brackets\\AdminUI\\AdminUIServiceProvider",
@@ -45,28 +50,28 @@ class AdminUIInstall extends Command
         $this->info('Package brackets/admin-ui installed');
     }
 
-    private function appendIfNotExists(string $fileName, string $ifExistsRegex, string $append): int|bool
+    private function appendIfNotExists(string $filePath, string $append, ?string $ifRegexNotExists = null): bool|int
     {
-        $content = File::get($fileName);
-        if (preg_match($ifExistsRegex, $content)) {
+        $content = $this->filesystem->get($filePath);
+        if ($ifRegexNotExists !== null && preg_match($ifRegexNotExists, $content)) {
             return false;
         }
 
-        return File::put($fileName, $content . $append);
+        return $this->filesystem->put($filePath, $content . $append);
     }
 
     /**
      * @throws FileNotFoundException
      */
-    private function frontendAdjustments(Filesystem $files): void
+    private function frontendAdjustments(): void
     {
         // webpack
         if (
-            File::exists(base_path('webpack.mix.js'))
+            $this->filesystem->exists(base_path('webpack.mix.js'))
             && $this->appendIfNotExists(
                 'webpack.mix.js',
+                "\n\n" . $this->filesystem->get(__DIR__ . '/../../../install-stubs/partial-webpack.mix.js'),
                 '|resources/js/admin|',
-                "\n\n" . $files->get(__DIR__ . '/../../../install-stubs/partial-webpack.mix.js'),
             )
         ) {
             $this->info('Webpack configuration updated');
@@ -75,7 +80,7 @@ class AdminUIInstall extends Command
         //Change package.json
         $this->info('Changing package.json');
         $packageJsonFile = base_path('package.json');
-        $packageJson = $files->get($packageJsonFile);
+        $packageJson = $this->filesystem->get($packageJsonFile);
         $packageJsonContent = json_decode($packageJson, true);
 
         if (!File::exists('webpack.mix.js')) {
@@ -85,13 +90,17 @@ class AdminUIInstall extends Command
             $packageJsonContent['devDependencies']['laravel-mix'] = '^6.0.6';
         }
 
+        if (isset($packageJsonContent['type'])) {
+            unset($packageJsonContent['type']);
+        }
+
         $packageJsonContent['devDependencies']['craftable'] = '^2.1.3';
         $packageJsonContent['devDependencies']['vue-loader'] = '^15.9.8';
         $packageJsonContent['devDependencies']['sass-loader'] = '^8.0.2';
         $packageJsonContent['devDependencies']['resolve-url-loader'] = '^3.1.0';
         $packageJsonContent['devDependencies']['sass'] = '^1.32.6';
 
-        $files->put($packageJsonFile, json_encode($packageJsonContent, JSON_PRETTY_PRINT));
+        $this->filesystem->put($packageJsonFile, json_encode($packageJsonContent, JSON_PRETTY_PRINT));
         $this->info('package.json changed');
     }
 }
