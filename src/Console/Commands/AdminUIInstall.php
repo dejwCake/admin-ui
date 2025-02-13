@@ -90,7 +90,7 @@ class AdminUIInstall extends Command
             $packageJsonContent['devDependencies']['laravel-mix'] = '^6.0.6';
         }
 
-        $packageJsonContent['devDependencies']['craftable'] = '^2.1.3';
+        $packageJsonContent['devDependencies']['@dejwcake/craftable'] = '^0.1.8';
         $packageJsonContent['devDependencies']['vue-loader'] = '^15.9.8';
         $packageJsonContent['devDependencies']['sass-loader'] = '^8.0.2';
         $packageJsonContent['devDependencies']['resolve-url-loader'] = '^3.1.0';

@@ -8,14 +8,14 @@ import Multiselect from 'vue-multiselect';
 import VeeValidate from 'vee-validate';
 import 'flatpickr/dist/flatpickr.css';
 import VueCookie from 'vue-cookie';
-import { Admin } from 'craftable';
+import { Admin } from '@dejwcake/craftable';
 import VModal from 'vue-js-modal'
 import Vue from 'vue';
 
 import './app-components/bootstrap';
 import './index';
 
-import 'craftable/dist/ui';
+import '@dejwcake/craftable/dist/ui';
 
 Vue.component('multiselect', Multiselect);
 Vue.use(VeeValidate, {strict: true});

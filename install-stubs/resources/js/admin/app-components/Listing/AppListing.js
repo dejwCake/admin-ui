@@ -1,4 +1,4 @@
-import { BaseListing } from 'craftable';
+import { BaseListing } from '@dejwcake/craftable';
 
 export default {
 	mixins: [BaseListing]

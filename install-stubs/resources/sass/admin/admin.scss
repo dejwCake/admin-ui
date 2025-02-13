@@ -1,8 +1,8 @@
 // Variables
-@import "variables";
+@use 'variables' as *;
 
 // Vendor
-@import "vendor/index";
+@use 'vendor/index' as *;
 
 // Your own, project specific styles
-@import "styles/index";
+@use 'styles/index' as *;
