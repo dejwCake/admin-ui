@@ -9,7 +9,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 
-class AdminUIInstall extends Command
+final class AdminUIInstall extends Command
 {
     /**
      * The name and signature of the console command.

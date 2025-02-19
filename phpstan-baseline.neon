@@ -7,13 +7,13 @@ parameters:
 			path: install-stubs/config/wysiwyg-media.php
 
 		-
-			message: '#^Out of 10 possible param types, only 6 \- 60\.0 %% actually have it\. Add more param types to get over 75 %%$#'
+			message: '#^Out of 12 possible param types, only 8 \- 66\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/BooleanValue.php
 
 		-
-			message: '#^Out of 10 possible param types, only 6 \- 60\.0 %% actually have it\. Add more param types to get over 75 %%$#'
+			message: '#^Out of 12 possible param types, only 8 \- 66\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: src/Http/Requests/Sanitizers/StringToArray.php
@@ -31,25 +31,25 @@ parameters:
 			path: src/Http/Requests/Traits/Validated.php
 
 		-
+			message: '#^Out of 12 possible param types, only 8 \- 66\.6 %% actually have it\. Add more param types to get over 75 %%$#'
+			identifier: typeCoverage.paramTypeCoverage
+			count: 1
+			path: src/Models/WysiwygMedia.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\Models\\WysiwygMedia\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Models/WysiwygMedia.php
+
+		-
 			message: '#^Trait Brackets\\AdminUI\\Traits\\HasWysiwygMediaTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
 			path: src/Traits/HasWysiwygMediaTrait.php
 
 		-
-			message: '#^Out of 10 possible param types, only 6 \- 60\.0 %% actually have it\. Add more param types to get over 75 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
-			count: 1
-			path: src/WysiwygMedia.php
-
-		-
-			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\WysiwygMedia\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: src/WysiwygMedia.php
-
-		-
-			message: '#^Out of 10 possible param types, only 6 \- 60\.0 %% actually have it\. Add more param types to get over 75 %%$#'
+			message: '#^Out of 12 possible param types, only 8 \- 66\.6 %% actually have it\. Add more param types to get over 75 %%$#'
 			identifier: typeCoverage.paramTypeCoverage
 			count: 1
 			path: tests/TestCase.php

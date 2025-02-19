@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Brackets\AdminUI;
+namespace Brackets\AdminUI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
