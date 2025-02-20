@@ -6,7 +6,7 @@ namespace Brackets\AdminUI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
 
 class WysiwygMedia extends Model
 {
@@ -22,8 +22,9 @@ class WysiwygMedia extends Model
     {
         parent::boot();
 
-        static::deleted(static function ($model): void {
-            File::delete(public_path() . '/' . $model->file_path);
+        $filesystem = app(Filesystem::class);
+        static::deleted(static function ($model) use ($filesystem): void {
+            $filesystem->delete(public_path() . '/' . $model->file_path);
         });
     }
 

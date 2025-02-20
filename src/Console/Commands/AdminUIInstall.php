@@ -7,7 +7,6 @@ namespace Brackets\AdminUI\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
 
 final class AdminUIInstall extends Command
 {
@@ -83,7 +82,7 @@ final class AdminUIInstall extends Command
         $packageJson = $this->filesystem->get($packageJsonFile);
         $packageJsonContent = json_decode($packageJson, true);
 
-        if (!File::exists('webpack.mix.js')) {
+        if (!$this->filesystem->exists('webpack.mix.js')) {
             $packageJsonContent['scripts']['craftable-dev'] = 'mix';
             $packageJsonContent['scripts']['craftable-watch'] = 'mix watch';
             $packageJsonContent['scripts']['craftable-prod'] = 'mix --production';

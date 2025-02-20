@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Brackets\AdminUI;
 
 use Brackets\AdminUI\Console\Commands\AdminUIInstall;
-use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
 class AdminUIServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $filesystem = app(Filesystem::class);
         $this->commands([
             AdminUIInstall::class,
         ]);
@@ -35,7 +36,7 @@ class AdminUIServiceProvider extends ServiceProvider
                 __DIR__ . '/../install-stubs/config/wysiwyg-media.php' => config_path('wysiwyg-media.php'),
             ], 'config');
 
-            if (!File::exists(base_path('webpack.mix.js'))) {
+            if (!$filesystem->exists(base_path('webpack.mix.js'))) {
                 $this->publishes([
                     __DIR__ . '/../install-stubs/webpack.mix.js' => base_path('webpack.mix.js'),
                 ], 'webpack');
