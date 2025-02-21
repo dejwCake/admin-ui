@@ -13,9 +13,6 @@ class AdminUIServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $filesystem = app(Filesystem::class);
-        $this->commands([
-            AdminUIInstall::class,
-        ]);
 
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'brackets/admin-ui');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'brackets/admin-ui');
@@ -54,6 +51,8 @@ class AdminUIServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        //do nothing
+        $this->commands([
+            AdminUIInstall::class,
+        ]);
     }
 }
