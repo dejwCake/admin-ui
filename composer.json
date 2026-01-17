@@ -53,8 +53,7 @@
     "autoload": {
         "psr-4": {
             "Brackets\\AdminUI\\": "src/"
-        },
-        "classmap": []
+        }
     },
     "autoload-dev": {
         "psr-4": {
