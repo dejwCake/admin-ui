@@ -5,8 +5,9 @@ Admin UI is an administration template for Laravel 12. It provides a ready-to-us
 Here’s an example of an administration interface built with this package:
 ![Craftable administration area example](https://docs.getcraftable.com/assets/posts-crud.png "Craftable administration area example")
 
-This package is part of [Craftable](https://github.com/dejwCake/craftable) (`dejwCake/craftable`), an administration starter kit for Laravel 12. Forked from [Craftable](https://github.com/BRACKETS-by-TRIAD/craftable) (`brackets/craftable`).
+This package is part of [Craftable](https://github.com/dejwCake/craftable) (`dejwCake/craftable`), an administration starter kit for Laravel 12, forked from [Craftable](https://github.com/BRACKETS-by-TRIAD/craftable) (`brackets/craftable`).
 
+## Documentation
 You can find the full documentation at https://docs.getcraftable.com/#/admin-ui
 
 ## Issues
