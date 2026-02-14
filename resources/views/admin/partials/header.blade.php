@@ -1,13 +1,13 @@
-<header class="app-header navbar">
-    <button class="navbar-toggler sidebar-toggler d-lg-none" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
+<header class="header header-sticky">
+    <button class="header-toggler d-lg-none me-2" type="button" data-coreui-toggle="sidebar">
+        <i class="fa-solid fa-bars"></i>
     </button>
 	@if(View::exists('admin.layout.logo'))
         @include('admin.layout.logo')
 	@endif
-    <ul class="nav navbar-nav ml-auto">
+    <ul class="header-nav ms-auto">
         <li class="nav-item dropdown">
-            <a role="button" class="dropdown-toggle nav-link">
+            <a role="button" class="dropdown-toggle nav-link" data-coreui-toggle="dropdown" data-coreui-display="static">
                 <span>
                     @if(Auth::check() && Auth::user()->avatar_thumb_url)
                         <img src="{{ Auth::user()->avatar_thumb_url }}" class="avatar-photo">

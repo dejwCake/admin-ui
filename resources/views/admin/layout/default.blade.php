@@ -1,18 +1,16 @@
 @extends('brackets/admin-ui::admin.layout.master')
 
-@section('header')
-    @include('brackets/admin-ui::admin.partials.header')
-@endsection
-
 @section('content')
 
-    <div class="app-body">
+    @if(View::exists('admin.layout.sidebar'))
+        @include('admin.layout.sidebar')
+    @endif
 
-        @if(View::exists('admin.layout.sidebar'))
-            @include('admin.layout.sidebar')
-        @endif
+    <div class="wrapper d-flex flex-column min-vh-100">
 
-        <main class="main">
+        @include('brackets/admin-ui::admin.partials.header')
+
+        <div class="body flex-grow-1">
 
             <div class="container-fluid" id="app" :class="{'loading': loading}">
                 <div class="modals">
@@ -24,12 +22,10 @@
 
                 @yield('body')
             </div>
-        </main>
-    </div>
-@endsection
+        </div>
 
-@section('footer')
-    @include('brackets/admin-ui::admin.partials.footer')
+        @include('brackets/admin-ui::admin.partials.footer')
+    </div>
 @endsection
 
 @section('bottom-scripts')
