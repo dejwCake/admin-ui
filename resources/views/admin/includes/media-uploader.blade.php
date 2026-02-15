@@ -35,9 +35,6 @@
 			:accepted-file-types="'{{ implode(',', $mediaCollection->getAcceptedFileTypes()) }}'"
 		@endif
 		@if(isset($media) && $media->count() > 0)
-			:uploaded-images="{{ json_encode($media->toArray()) }}"
-		@endif
-		@if(isset($media) && $media->count() > 0)
 			:uploaded-media="{{ json_encode($media->toArray()) }}"
 		@endif
 ></media-upload>
