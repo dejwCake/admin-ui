@@ -12,6 +12,9 @@ return [
         'publish_now' => 'Publikovať',
         'unpublish_now' => 'Zrušiť publikovanie',
         'publish_later' => 'Publikovať neskôr',
+        'will_be_published' => 'Položka bude publikovaná o',
+        'confirm_publish_now' => 'Naozaj chcete publikovať položku teraz?',
+        'confirm_unpublish_now' => 'Naozaj chcete zrušit publikovanie položky?',
     ],
 
     'dialogs' => [

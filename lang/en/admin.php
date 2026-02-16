@@ -12,6 +12,9 @@ return [
         'publish_now' => 'Publish now',
         'unpublish_now' => 'Unpublish now',
         'publish_later' => 'Publish later',
+        'will_be_published' => 'This item will be published at',
+        'confirm_publish_now' => 'Do you really want to publish this item now?',
+        'confirm_unpublish_now' => 'Do you really want to unpublish this item?',
     ],
 
     'dialogs' => [
