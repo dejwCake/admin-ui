@@ -15,6 +15,7 @@ return [
         'will_be_published' => 'Položka bude publikovaná o',
         'confirm_publish_now' => 'Naozaj chcete publikovať položku teraz?',
         'confirm_unpublish_now' => 'Naozaj chcete zrušit publikovanie položky?',
+        'confirm_delete' => 'Naozaj chcete zmazať túto položku?',
     ],
 
     'dialogs' => [
@@ -111,8 +112,10 @@ return [
     ],
 
     'pagination' => [
-        'overview' => 'Zobrazujú sa položky od {{ pagination.state.from }} do {{ pagination.state.to }}'
-            . ' z celkom {{ pagination.state.total }} položiek.',
+        'overview' => 'Zobrazujú sa položky od :from do :to'
+            . ' z celkom :total položiek.',
+        'previous' => 'Predchádzajúca',
+        'next' => 'Nasledujúca',
     ],
 
     'logo' => [

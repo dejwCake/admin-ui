@@ -15,6 +15,7 @@ return [
         'will_be_published' => 'This item will be published at',
         'confirm_publish_now' => 'Do you really want to publish this item now?',
         'confirm_unpublish_now' => 'Do you really want to unpublish this item?',
+        'confirm_delete' => 'Do you really want to delete this item?',
     ],
 
     'dialogs' => [
@@ -115,8 +116,10 @@ return [
     ],
 
     'pagination' => [
-        'overview' => 'Displaying items from {{ pagination.state.from }} to {{ pagination.state.to }}'
-            . ' of total {{ pagination.state.total }} items.',
+        'overview' => 'Displaying items from :from to :to'
+            . ' of total :total items.',
+        'previous' => 'Previous',
+        'next' => 'Next',
     ],
 
     'logo' => [
