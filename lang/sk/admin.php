@@ -16,6 +16,9 @@ return [
         'confirm_publish_now' => 'Naozaj chcete publikovať položku teraz?',
         'confirm_unpublish_now' => 'Naozaj chcete zrušit publikovanie položky?',
         'confirm_delete' => 'Naozaj chcete zmazať túto položku?',
+        'confirm_delete_title' => 'Zmazanie',
+        'confirm_delete_text' => 'Naozaj chcete zmazať položku?',
+        'confirm_delete_text_multiple' => 'Naozaj chcete zmazať :number zvolených položiek?',
     ],
 
     'dialogs' => [

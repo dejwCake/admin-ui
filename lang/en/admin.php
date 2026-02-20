@@ -15,7 +15,9 @@ return [
         'will_be_published' => 'This item will be published at',
         'confirm_publish_now' => 'Do you really want to publish this item now?',
         'confirm_unpublish_now' => 'Do you really want to unpublish this item?',
-        'confirm_delete' => 'Do you really want to delete this item?',
+        'confirm_delete_title' => 'Deletion',
+        'confirm_delete_text' => 'Do you really want to delete this item?',
+        'confirm_delete_text_multiple' => 'Do you really want to delete :number selected items?',
     ],
 
     'dialogs' => [
