@@ -99,10 +99,11 @@ return [
         'select_date_and_time' => 'Zvoľte dátum a čas',
         'choose_translation_to_edit' => 'Zvoľte preklad na úpravu',
         'manage_translations' => 'Spravovať preklady',
-        'more_can_be_managed' => '({{ otherLocales.length }} možno spravovať)',
-        'currently_editing_translation' => 'Práve upravujete {{ this.defaultLocale.toUpperCase() }} (základný) preklad',
+        'more_can_be_managed' => '(:count možno spravovať)',
+        'currently_editing_translation' => 'Práve upravujete :locale (základný) preklad',
         'hide' => 'Skryť preklady',
         'publish' => 'Publikácia',
+        'gallery' => 'Galéria',
         'history' => 'História',
         'created_by' => 'Vytvoril',
         'updated_by' => 'Aktualizoval',
@@ -115,8 +116,7 @@ return [
     ],
 
     'pagination' => [
-        'overview' => 'Zobrazujú sa položky od :from do :to'
-            . ' z celkom :total položiek.',
+        'overview' => 'Zobrazujú sa položky od :from do :to z celkom :total položiek.',
         'previous' => 'Predchádzajúca',
         'next' => 'Nasledujúca',
     ],
