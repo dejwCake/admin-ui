@@ -24,8 +24,8 @@ final class WysiwygMediaUploadController extends BaseController
             || !in_array($temporaryFile->getMimeType(), ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'], true)
         ) {
             return response()->json([
-                'success' => false,
-            ]);
+                'error' => 'Invalid file type.',
+            ], 422);
         }
 
         // generate path that it will be saved to
@@ -53,7 +53,6 @@ final class WysiwygMediaUploadController extends BaseController
         return response()->json([
             'file' => url($savedPath),
             'mediaId' => $wysiwygMedia->id,
-            'success' => true,
         ]);
     }
 }
