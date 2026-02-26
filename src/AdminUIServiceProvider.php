@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Brackets\AdminUI;
 
 use Brackets\AdminUI\Console\Commands\AdminUIInstall;
+use Brackets\AdminUI\Providers\ViewComposerProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
@@ -51,6 +52,8 @@ class AdminUIServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->app->register(ViewComposerProvider::class);
+
         $this->commands([
             AdminUIInstall::class,
         ]);
