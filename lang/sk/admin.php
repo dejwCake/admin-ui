@@ -145,5 +145,4 @@ return [
         // we leave this in english intentionally
         'powered_by' => 'Powered by',
     ],
-
 ];
