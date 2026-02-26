@@ -23,7 +23,7 @@ final class WysiwygMediaUploadController extends BaseController
             !$temporaryFile->isFile()
             || !in_array($temporaryFile->getMimeType(), ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'], true)
         ) {
-            return response()->json([
+            return new JsonResponse([
                 'error' => 'Invalid file type.',
             ], 422);
         }
@@ -50,7 +50,7 @@ final class WysiwygMediaUploadController extends BaseController
         $wysiwygMedia = WysiwygMedia::create(['file_path' => $savedPath]);
 
         // return image's path to use in wysiwyg
-        return response()->json([
+        return new JsonResponse([
             'file' => url($savedPath),
             'mediaId' => $wysiwygMedia->id,
         ]);
