@@ -12,11 +12,13 @@
     <arg name="extensions" value="php" />
     <arg value="p" />
 
+    <file>config/</file>
+    <file>database/</file>
     <file>install-stubs/</file>
     <file>lang/</file>
     <file>resources/</file>
-    <file>src/</file>
     <file>routes/</file>
+    <file>src/</file>
     <file>tests/</file>
 
     <!-- Include whole PHPCompatibility standard -->

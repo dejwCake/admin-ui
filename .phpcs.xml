@@ -7,11 +7,13 @@
 
     <config name="php_version" value="80200" />
 
+    <file>config/</file>
+    <file>database/</file>
     <file>install-stubs/</file>
     <file>lang/</file>
     <file>resources/</file>
-    <file>src/</file>
     <file>routes/</file>
+    <file>src/</file>
     <file>tests/</file>
 
     <!--not exactly nice, but working solution-->
