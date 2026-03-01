@@ -6,7 +6,7 @@
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>
             {{-- Do not delete me :) I'm also used for auto-generation menu items --}}
-            {{--<li class="nav-item"><a class="nav-link" href="{{ url('admin/configuration') }}"><i class="nav-icon icon-settings"></i> {{ __('Configuration') }}</a></li>--}}
+            {{--<li class="nav-item"><a class="nav-link" href="{{ url('admin/configuration') }}"><i class="nav-icon fa fa-gear"></i> {{ __('Configuration') }}</a></li>--}}
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
