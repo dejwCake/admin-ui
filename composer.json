@@ -65,9 +65,10 @@
             "providers": [
                 "Brackets\\AdminUI\\AdminUIServiceProvider"
             ]
+        },
+        "branch-alias": {
+            "dev-main": "1.0-dev",
+            "dev-v2-dev": "2.0-dev"
         }
-    },
-    "branch-alias": {
-        "dev-main": "1.0-dev"
     }
 }
