@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wysiwyg_media', static function (Blueprint $table): void {
-            $table->increments('id');
+            $table->id();
             $table->string('file_path');
             $table->unsignedInteger('wysiwygable_id')->nullable()->index();
             $table->string('wysiwygable_type')->nullable();
