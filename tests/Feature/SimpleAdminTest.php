@@ -6,7 +6,7 @@ namespace Brackets\AdminUI\Tests\Feature;
 
 use Brackets\AdminUI\Tests\TestCase;
 
-class SimpleAdminTest extends TestCase
+final class SimpleAdminTest extends TestCase
 {
     public function testIfCanDisplayAnAdminListing(): void
     {

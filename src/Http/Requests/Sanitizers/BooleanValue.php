@@ -6,7 +6,7 @@ namespace Brackets\AdminUI\Http\Requests\Sanitizers;
 
 use ArondeParon\RequestSanitizer\Contracts\Sanitizer;
 
-class BooleanValue implements Sanitizer
+final readonly class BooleanValue implements Sanitizer
 {
     /**
      * @param string|bool|int|null $input

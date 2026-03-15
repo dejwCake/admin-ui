@@ -9,7 +9,7 @@ use ArondeParon\RequestSanitizer\Contracts\Sanitizer;
 use function explode;
 use function is_string;
 
-class StringToArray implements Sanitizer
+final readonly class StringToArray implements Sanitizer
 {
     /**
      * @param string|array|null $input

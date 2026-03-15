@@ -4,24 +4,22 @@ declare(strict_types=1);
 
 namespace Brackets\AdminUI\Providers;
 
+use Brackets\AdminUI\ViewComposers\AdminHeaderComposer;
+use Brackets\AdminUI\ViewComposers\AdminLayoutComposer;
 use Brackets\AdminUI\ViewComposers\WysiwygUploadUrlComposer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 
-class ViewComposerProvider extends ServiceProvider
+final class ViewComposerProvider extends ServiceProvider
 {
-    /**
-     * Register bindings in the container.
-     */
     public function boot(): void
     {
         $viewFactory = $this->app->get(Factory::class);
         $viewFactory->composer('*', WysiwygUploadUrlComposer::class);
+        $viewFactory->composer('brackets/admin-ui::admin.layout.master', AdminLayoutComposer::class);
+        $viewFactory->composer('brackets/admin-ui::admin.partials.header', AdminHeaderComposer::class);
     }
 
-    /**
-     * Register the service provider.
-     */
     public function register(): void
     {
         //do nothing

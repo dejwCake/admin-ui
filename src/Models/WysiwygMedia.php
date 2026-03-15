@@ -7,8 +7,18 @@ namespace Brackets\AdminUI\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Filesystem\Filesystem;
+use Carbon\CarbonInterface;
 
-class WysiwygMedia extends Model
+/**
+ * @property int $id
+ * @property string $file_path
+ * @property int|null $wysiwygable_id
+ * @property string|null $wysiwygable_type
+ * @property CarbonInterface|null $created_at
+ * @property CarbonInterface|null $updated_at
+ * @property-read Model|null $wysiwygable
+ */
+final class WysiwygMedia extends Model
 {
     /**
      * @var array<string>
