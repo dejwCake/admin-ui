@@ -5,23 +5,18 @@ declare(strict_types=1);
 namespace Brackets\AdminUI\ViewComposers;
 
 use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\Session\TokenMismatchException;
-use Illuminate\View\View;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Contracts\View\View;
 
 final readonly class AdminLayoutComposer
 {
-    public function __construct(private Config $config)
+    public function __construct(private Config $config, private ?Session $session = null)
     {
     }
 
     public function compose(View $view): void
     {
-        $view->with('appLocale', $this->config->get('app.locale', 'en'));
-
-        try {
-            $view->with('csrfToken', csrf_token());
-        } catch (TokenMismatchException) {
-            $view->with('csrfToken', '');
-        }
+        $view->with('appLocale', $this->config->get('app.locale') ?? 'en');
+        $view->with('csrfToken', $this->session?->token() ?? '');
     }
 }

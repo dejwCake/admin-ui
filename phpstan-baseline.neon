@@ -7,49 +7,25 @@ parameters:
 			path: config/wysiwyg-media.php
 
 		-
-			message: '#^Out of 14 possible param types, only 10 \- 71\.4 %% actually have it\. Add more param types to get over 75 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
-			count: 1
-			path: src/Http/Requests/Sanitizers/BooleanValue.php
-
-		-
-			message: '#^Out of 14 possible param types, only 10 \- 71\.4 %% actually have it\. Add more param types to get over 75 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
-			count: 1
-			path: src/Http/Requests/Sanitizers/StringToArray.php
-
-		-
-			message: '#^Trait Brackets\\AdminUI\\Http\\Requests\\Traits\\SanitizeBoolean is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Http/Requests/Traits/SanitizeBoolean.php
-
-		-
-			message: '#^Trait Brackets\\AdminUI\\Http\\Requests\\Traits\\Validated is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Http/Requests/Traits/Validated.php
-
-		-
-			message: '#^Out of 14 possible param types, only 10 \- 71\.4 %% actually have it\. Add more param types to get over 75 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
-			count: 1
-			path: src/Models/WysiwygMedia.php
-
-		-
 			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\Models\\WysiwygMedia\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
 			count: 1
 			path: src/Models/WysiwygMedia.php
 
 		-
-			message: '#^Trait Brackets\\AdminUI\\Traits\\HasWysiwygMediaTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphTo'' and Illuminate\\Database\\Eloquent\\Relations\\MorphTo will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
 			count: 1
-			path: src/Traits/HasWysiwygMediaTrait.php
+			path: tests/Feature/Models/WysiwygMediaTest.php
 
 		-
-			message: '#^Out of 14 possible param types, only 10 \- 71\.4 %% actually have it\. Add more param types to get over 75 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany'' and Illuminate\\Database\\Eloquent\\Relations\\MorphMany will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
 			count: 1
-			path: tests/TestCase.php
+			path: tests/Feature/Traits/HasWysiwygMediaTraitTest.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\Tests\\TestWysiwygableModel\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: tests/TestWysiwygableModel.php

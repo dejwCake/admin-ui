@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Brackets\AdminUI\ViewComposers;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 final readonly class WysiwygUploadUrlComposer
 {

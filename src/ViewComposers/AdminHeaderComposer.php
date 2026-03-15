@@ -7,7 +7,7 @@ namespace Brackets\AdminUI\ViewComposers;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 final readonly class AdminHeaderComposer
 {
