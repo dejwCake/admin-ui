@@ -6,7 +6,6 @@ namespace Brackets\AdminUI;
 
 use Brackets\AdminUI\Console\Commands\AdminUIInstall;
 use Brackets\AdminUI\Providers\ViewComposerProvider;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
 class AdminUIServiceProvider extends ServiceProvider
@@ -35,9 +34,7 @@ class AdminUIServiceProvider extends ServiceProvider
 
     private function publish(): void
     {
-        $filesystem = $this->app->get(Filesystem::class);
-
-        $time = date('His', time());
+        $timestamp = date('Y_m_d_His');
 
         $this->publishes([
             __DIR__ . '/../config/wysiwyg-media.php' => $this->app->configPath('wysiwyg-media.php'),
@@ -49,24 +46,22 @@ class AdminUIServiceProvider extends ServiceProvider
 
         if (!glob($this->app->databasePath('migrations/*_create_wysiwyg_media_table.php'))) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_wysiwyg_media_table.php' =>
-                    $this->app->databasePath('migrations') . '/2025_01_01_' . $time . '_create_wysiwyg_media_table.php',
+                __DIR__ . '/../database/migrations/create_wysiwyg_media_table.php'
+                => sprintf(
+                    '%s/%s_create_wysiwyg_media_table.php',
+                    $this->app->databasePath('migrations'),
+                    $timestamp
+                ),
             ], 'migrations');
         }
 
         $this->publishes([
             __DIR__ . '/../install-stubs/resources/js/admin' => $this->app->resourcePath('js/admin'),
-            __DIR__ . '/../install-stubs/resources/sass/admin' => $this->app->resourcePath('sass/admin'),
+            __DIR__ . '/../install-stubs/resources/css/admin' => $this->app->resourcePath('css/admin'),
         ], 'assets');
 
         $this->publishes([
             __DIR__ . '/../install-stubs/resources/views' => $this->app->resourcePath('views'),
         ], 'views');
-
-        if (!$filesystem->exists($this->app->basePath('webpack.mix.js'))) {
-            $this->publishes([
-                __DIR__ . '/../install-stubs/webpack.mix.js' => $this->app->basePath('webpack.mix.js'),
-            ], 'webpack');
-        }
     }
 }

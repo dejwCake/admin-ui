@@ -1,30 +1,44 @@
 import './bootstrap';
-
-import 'vue-multiselect/dist/vue-multiselect.min.css';
-import flatPickr from 'vue-flatpickr-component';
-import VueQuillEditor from 'vue-quill-editor';
-import Notifications from 'vue-notification';
+import { createApp } from 'vue';
+import { useAdmin } from '@craftable/composables/useAdmin.js';
+import { initUI } from '@craftable/ui/index.js';
+import { initDateFnsLocale } from '@craftable/utils/dateFnsLocale.js';
+import MediaUpload from '@craftable/components/form/MediaUpload.vue';
+import TranslationListing from '@craftable/translation/TranslationListing.vue';
+import Notifications from '@kyvg/vue3-notification';
 import Multiselect from 'vue-multiselect';
-import VeeValidate from 'vee-validate';
-import 'flatpickr/dist/flatpickr.css';
-import VueCookie from 'vue-cookie';
-import { Admin } from '@dejwcake/craftable';
-import VModal from 'vue-js-modal'
-import Vue from 'vue';
+import { VueDatePicker } from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
-import './app-components/bootstrap';
-import './index';
+import LoginForm from '@craftable/auth/LoginForm.vue';
+import ForgotPasswordForm from '@craftable/auth/ForgotPasswordForm.vue';
+import ResetPasswordForm from '@craftable/auth/ResetPasswordForm.vue';
+import ActivationForm from '@craftable/auth/ActivationForm.vue';
+import ActivationError from '@craftable/auth/ActivationError.vue';
+//-- Do not delete me :) I'm used for auto-generation js import--
 
-import '@dejwcake/craftable/dist/ui';
+const app = createApp({
+    setup() {
+        return useAdmin();
+    },
+});
 
-Vue.component('multiselect', Multiselect);
-Vue.use(VeeValidate, {strict: true});
-Vue.component('datetime', flatPickr);
-Vue.use(VModal, { dialog: true, dynamic: true, injectModalsContainer: true });
-Vue.use(VueQuillEditor);
-Vue.use(Notifications);
-Vue.use(VueCookie);
+app.use(Notifications);
+app.component('Multiselect', Multiselect);
+app.component('Datetime', VueDatePicker);
+app.component('MediaUpload', MediaUpload);
 
-new Vue({
-    mixins: [Admin],
+app.component('ActivationError', ActivationError);
+app.component('ActivationForm', ActivationForm);
+app.component('ForgotPasswordForm', ForgotPasswordForm);
+app.component('LoginForm', LoginForm);
+app.component('ResetPasswordForm', ResetPasswordForm);
+
+app.component('TranslationListing', TranslationListing);
+
+//-- Do not delete me :) I'm used for auto-generation component registration--
+
+initDateFnsLocale().then(() => {
+    app.mount('#app');
+    initUI();
 });
