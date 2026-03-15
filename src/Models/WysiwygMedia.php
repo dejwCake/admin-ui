@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Brackets\AdminUI\Models;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Filesystem\Filesystem;
-use Carbon\CarbonInterface;
 
 /**
  * @property int $id
@@ -33,7 +33,7 @@ final class WysiwygMedia extends Model
         parent::boot();
 
         $filesystem = app(Filesystem::class);
-        static::deleted(static function ($model) use ($filesystem): void {
+        self::deleted(static function ($model) use ($filesystem): void {
             $filesystem->delete(public_path() . '/' . $model->file_path);
         });
     }

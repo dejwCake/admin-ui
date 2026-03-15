@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Brackets\AdminUI\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 
 final class AdminUIInstall extends Command
@@ -67,10 +67,7 @@ final class AdminUIInstall extends Command
         $viteConfigPath = $this->app->basePath('vite.config.js');
 
         if (!$this->filesystem->exists($viteConfigPath)) {
-            $this->filesystem->copy(
-                __DIR__ . '/../../../install-stubs/vite.config.js',
-                $viteConfigPath,
-            );
+            $this->filesystem->copy(__DIR__ . '/../../../install-stubs/vite.config.js', $viteConfigPath);
             $this->info('Vite configuration created');
 
             return;
@@ -144,12 +141,7 @@ final class AdminUIInstall extends Command
 
         JS;
 
-        return preg_replace(
-            '/(\n*)(export\s+default)/',
-            $function . "\n$2",
-            $config,
-            1,
-        );
+        return preg_replace('/(\n*)(export\s+default)/', $function . "\n$2", $config, 1);
     }
 
     private function addAdminInputEntries(string $config): string
@@ -200,12 +192,7 @@ final class AdminUIInstall extends Command
                     }),
             JS;
 
-            $config = preg_replace(
-                '/(tailwindcss\s*\(\s*\)\s*,?\s*\n)/',
-                "$1" . $vuePlugin . "\n",
-                $config,
-                1,
-            );
+            $config = preg_replace('/(tailwindcss\s*\(\s*\)\s*,?\s*\n)/', "$1" . $vuePlugin . "\n", $config, 1);
         }
 
         return $config;

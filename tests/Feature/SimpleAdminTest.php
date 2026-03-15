@@ -10,12 +10,14 @@ final class SimpleAdminTest extends TestCase
 {
     public function testIfCanDisplayAnAdminListing(): void
     {
-        $this->visit('/admin/test/index');
+        $response = $this->get('/admin/test/index');
 
-        self::assertStringContainsString("<title>Craftable - Craftable</title>", $this->response->getContent());
+        $response->assertOk();
 
-        self::assertStringContainsString("Here should be some custom code :)", $this->response->getContent());
+        $content = $response->getContent();
 
-        self::assertStringContainsString("</html>", $this->response->getContent());
+        self::assertStringContainsString('<title>Craftable - Craftable</title>', $content);
+        self::assertStringContainsString('Here should be some custom code :)', $content);
+        self::assertStringContainsString('</html>', $content);
     }
 }

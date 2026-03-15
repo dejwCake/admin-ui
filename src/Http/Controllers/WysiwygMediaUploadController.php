@@ -6,10 +6,10 @@ namespace Brackets\AdminUI\Http\Controllers;
 
 use Brackets\AdminUI\Models\WysiwygMedia;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Routing\Controller as BaseController;
 use Intervention\Image\ImageManager;
 use Spatie\ImageOptimizer\OptimizerChainFactory;

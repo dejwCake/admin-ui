@@ -7,10 +7,11 @@ namespace Brackets\AdminUI\Tests;
 use Brackets\AdminUI\AdminUIServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
-use Orchestra\Testbench\BrowserKit\TestCase as OrchestraBrowser;
+use Orchestra\Testbench\TestCase as Orchestra;
 
-abstract class TestCase extends OrchestraBrowser
+abstract class TestCase extends Orchestra
 {
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

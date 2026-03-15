@@ -53,7 +53,7 @@ final class AdminUIServiceProvider extends ServiceProvider
                 => sprintf(
                     '%s/%s_create_wysiwyg_media_table.php',
                     $this->app->databasePath('migrations'),
-                    $timestamp
+                    $timestamp,
                 ),
             ], 'migrations');
         }
