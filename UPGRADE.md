@@ -3,7 +3,7 @@
 ## Requirements
 
 - PHP ^8.5 (was ^8.2)
-- Laravel 12 (unchanged)
+- Laravel 13 (was 12)
 - Vite (replaces Webpack/Laravel Mix)
 - Vue 3 Composition API (replaces Vue 2 Options API)
 - Bootstrap 5 / CoreUI 5 (replaces Bootstrap 4 / CoreUI 2)
@@ -22,7 +22,7 @@
 -    "orchestra/testbench-browser-kit": "^10.0",
 -    "phpunit/phpunit": "^11.5.9"
 +    "larastan/larastan": "^3.9",
-+    "orchestra/testbench": "^10.9",
++    "orchestra/testbench": "^11.0",
 +    "phpunit/phpunit": "^13.0"
  },
 +"minimum-stability": "dev",
