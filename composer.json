@@ -50,8 +50,6 @@
         "orchestra/testbench": "^11.0",
         "phpunit/phpunit": "^13.0"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Brackets\\AdminUI\\": "src/"
