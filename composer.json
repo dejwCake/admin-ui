@@ -2,7 +2,7 @@
     "name": "dejwcake/admin-ui",
     "description": "Administration user interface template",
     "license": "MIT",
-    "type": "project",
+    "type": "library",
     "keywords": [
         "admin-ui",
         "template",
@@ -62,7 +62,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0-dev",
+            "dev-main": "2.0-dev",
             "dev-v2-dev": "2.0-dev"
         },
         "laravel": {
