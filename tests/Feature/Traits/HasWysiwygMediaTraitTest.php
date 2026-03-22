@@ -9,6 +9,7 @@ use Brackets\AdminUI\Tests\TestCase;
 use Brackets\AdminUI\Tests\TestWysiwygableModel;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Filesystem\Filesystem;
 use Override;
 
 final class HasWysiwygMediaTraitTest extends TestCase
@@ -75,9 +76,9 @@ final class HasWysiwygMediaTraitTest extends TestCase
         $model->wysiwygMedia()->save($media);
 
         // Stub filesystem to prevent actual file deletion
-        $filesystem = $this->createStub(\Illuminate\Filesystem\Filesystem::class);
+        $filesystem = $this->createStub(Filesystem::class);
         $filesystem->method('delete')->willReturn(true);
-        $this->app->instance(\Illuminate\Filesystem\Filesystem::class, $filesystem);
+        $this->app->instance(Filesystem::class, $filesystem);
 
         $model->delete();
 
