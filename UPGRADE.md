@@ -72,8 +72,11 @@ Replace Vue 2 `new Vue()` with Vue 3 `createApp()`:
 -new Vue({ el: '#app' })
 +import { createApp } from 'vue'
 +import { useAdmin } from '@craftable/composables/useAdmin.js'
-+const { initDateFnsLocale, initUI } = useAdmin()
-+const app = createApp({})
++import { initUI } from '@craftable/ui/index.js'
++import { initDateFnsLocale } from '@craftable/utils/dateFnsLocale.js'
++const app = createApp({
++    setup() { return useAdmin() }
++})
 +// register components...
 +initDateFnsLocale().then(() => { app.mount('#app'); initUI() })
 ```
