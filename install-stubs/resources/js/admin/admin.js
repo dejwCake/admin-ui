@@ -15,7 +15,7 @@ import ForgotPasswordForm from '@craftable/auth/ForgotPasswordForm.vue';
 import ResetPasswordForm from '@craftable/auth/ResetPasswordForm.vue';
 import ActivationForm from '@craftable/auth/ActivationForm.vue';
 import ActivationError from '@craftable/auth/ActivationError.vue';
-//-- Do not delete me :) I'm used for auto-generation js import--
+//-- Do not delete me :) I'm used for auto-generation js import --
 
 const app = createApp({
     setup() {
@@ -36,7 +36,7 @@ app.component('ResetPasswordForm', ResetPasswordForm);
 
 app.component('TranslationListing', TranslationListing);
 
-//-- Do not delete me :) I'm used for auto-generation component registration--
+//-- Do not delete me :) I'm used for auto-generation component registration --
 
 initDateFnsLocale().then(() => {
     app.mount('#app');
