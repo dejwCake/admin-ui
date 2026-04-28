@@ -296,7 +296,7 @@ final class AdminUIInstall extends Command
 
         $packageJsonContent['scripts']['publish:craftable-components'] = 'craftable-publish-components';
 
-        $packageJsonContent['devDependencies']['@dejwcake/craftable'] = '^1.0.0';
+        $packageJsonContent['devDependencies']['@dejwcake/craftable'] = '^2.0.0';
         $packageJsonContent['devDependencies']['@vitejs/plugin-vue'] = '^6.0.0';
         $packageJsonContent['devDependencies']['sass'] = '^1.32.6';
 
