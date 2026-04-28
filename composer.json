@@ -47,8 +47,8 @@
     "require-dev": {
         "larastan/larastan": "^3.9",
         "mockery/mockery": "^1.6",
-        "orchestra/testbench": "^11.0",
-        "phpunit/phpunit": "^13.0"
+        "orchestra/testbench": "^11.1",
+        "phpunit/phpunit": "^13.1"
     },
     "autoload": {
         "psr-4": {
