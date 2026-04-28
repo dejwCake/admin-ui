@@ -241,6 +241,17 @@ final class AdminUIInstall extends Command
             }
         }
 
+        // Add axios alias (force the prebuilt browser ESM bundle — works around
+        // a vite 8 / rolldown chunking issue with axios's source-tree ESM entry)
+        if (!str_contains($config, 'axios/dist/esm/axios.js')) {
+            $config = preg_replace(
+                '/(resolve\s*:\s*\{\s*\n\s*alias\s*:\s*\{)/',
+                "$1\n            axios: path.resolve('node_modules/axios/dist/esm/axios.js'),",
+                $config,
+                1,
+            );
+        }
+
         return $config;
     }
 

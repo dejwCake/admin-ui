@@ -32,6 +32,7 @@ export default defineConfig({
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
+            axios: path.resolve('node_modules/axios/dist/esm/axios.js'),
         },
     },
     plugins: [
