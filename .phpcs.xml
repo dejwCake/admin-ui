@@ -25,6 +25,9 @@
             <property name="maxComplexity" value="10"/>
         </properties>
     </rule>
+    <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+        <exclude-pattern>src/Console/Support/ViteConfigEditor.php</exclude-pattern>
+    </rule>
 
     <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
         <properties>
