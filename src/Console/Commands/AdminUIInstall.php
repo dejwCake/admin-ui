@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Brackets\AdminUI\Console\Commands;
 
+use Brackets\AdminUI\Console\Support\PackageJsonEditor;
 use Brackets\AdminUI\Console\Support\ViteConfigEditor;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -32,6 +33,7 @@ final class AdminUIInstall extends Command
         private readonly Filesystem $filesystem,
         private readonly Application $app,
         private readonly ViteConfigEditor $viteConfigEditor,
+        private readonly PackageJsonEditor $packageJsonEditor,
     ) {
         parent::__construct();
     }
@@ -95,18 +97,17 @@ final class AdminUIInstall extends Command
      */
     private function adjustPackageJson(): void
     {
-        $this->info('Changing package.json');
         $packageJsonFile = $this->app->basePath('package.json');
-        $packageJson = $this->filesystem->get($packageJsonFile);
-        $packageJsonContent = json_decode($packageJson, true);
+        $original = $this->filesystem->get($packageJsonFile);
+        $updated = $this->packageJsonEditor->installAdminUi($original);
 
-        $packageJsonContent['scripts']['publish:craftable-components'] = 'craftable-publish-components';
+        if ($original === $updated) {
+            $this->info('package.json already up to date, skipping');
 
-        $packageJsonContent['devDependencies']['@dejwcake/craftable'] = '^2.0.0';
-        $packageJsonContent['devDependencies']['@vitejs/plugin-vue'] = '^6.0.0';
-        $packageJsonContent['devDependencies']['sass'] = '^1.32.6';
+            return;
+        }
 
-        $this->filesystem->put($packageJsonFile, json_encode($packageJsonContent, JSON_PRETTY_PRINT));
+        $this->filesystem->put($packageJsonFile, $updated);
         $this->info('package.json changed');
     }
 }
