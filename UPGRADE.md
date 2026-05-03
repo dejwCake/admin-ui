@@ -81,6 +81,22 @@ Replace Vue 2 `new Vue()` with Vue 3 `createApp()`:
 +initDateFnsLocale().then(() => { app.mount('#app'); initUI() })
 ```
 
+### Auto-generation markers in `admin.js`
+
+The single anchor markers used by `admin-generator`'s `registerVueComponent` (`//-- Do not delete me :) I'm used for auto-generation js import --` and `//-- Do not delete me :) I'm used for auto-generation component registration --`) have been replaced with **begin/end pairs**. The install-stub now ships:
+
+```js
+//-- Do not delete me :) I'm used for auto-generation js import begin --
+//-- Do not delete me :) I'm used for auto-generation js import end --
+```
+
+```js
+//-- Do not delete me :) I'm used for auto-generation component registration begin --
+//-- Do not delete me :) I'm used for auto-generation component registration end --
+```
+
+Auto-generated `import` and `app.component(...)` lines live between these markers and are re-sorted alphabetically by component name on each generation. See the corresponding section in `admin-generator/UPGRADE.md` for the manual migration steps.
+
 ### bootstrap.js
 
 - Removed: jQuery, lodash, moment.js, `window.Vue` global
