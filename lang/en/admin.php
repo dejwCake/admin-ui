@@ -104,6 +104,7 @@ return [
         'hide' => 'Hide Translations',
         'select_an_option' => 'Select an option',
         'select_options' => 'Select options',
+        'create_tag' => 'Press enter to create a tag',
         'publish' => 'Publish',
         'gallery' => 'Gallery',
         'history' => 'History',
