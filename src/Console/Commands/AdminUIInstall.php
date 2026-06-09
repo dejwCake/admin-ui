@@ -70,9 +70,10 @@ final class AdminUIInstall extends Command
      */
     private function adjustViteConfig(): void
     {
-        $viteConfigPath = $this->app->basePath('vite.config.js');
+        $viteConfigPath = $this->locateViteConfig();
 
-        if (!$this->filesystem->exists($viteConfigPath)) {
+        if ($viteConfigPath === null) {
+            $viteConfigPath = $this->app->basePath('vite.config.js');
             $this->filesystem->copy(__DIR__ . '/../../../install-stubs/vite.config.js', $viteConfigPath);
             $this->info('Vite configuration created');
 
@@ -80,7 +81,9 @@ final class AdminUIInstall extends Command
         }
 
         $original = $this->filesystem->get($viteConfigPath);
-        $updated = $this->viteConfigEditor->installAdminUi($original);
+        $isTypeScript = str_ends_with($viteConfigPath, '.ts') || str_ends_with($viteConfigPath, '.mts')
+            || str_ends_with($viteConfigPath, '.cts');
+        $updated = $this->viteConfigEditor->installAdminUi($original, $isTypeScript);
 
         if ($original === $updated) {
             $this->info('Vite configuration already up to date, skipping');
@@ -89,7 +92,22 @@ final class AdminUIInstall extends Command
         }
 
         $this->filesystem->put($viteConfigPath, $updated);
-        $this->info('Vite configuration updated');
+        $this->info('Vite configuration updated (' . basename($viteConfigPath) . ')');
+    }
+
+    /**
+     * Locate the existing Vite config file, probing extensions in Vite's own resolution order.
+     */
+    private function locateViteConfig(): ?string
+    {
+        foreach (['js', 'mjs', 'ts', 'cjs', 'mts', 'cts'] as $extension) {
+            $path = $this->app->basePath('vite.config.' . $extension);
+            if ($this->filesystem->exists($path)) {
+                return $path;
+            }
+        }
+
+        return null;
     }
 
     /**

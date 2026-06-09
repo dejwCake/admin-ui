@@ -19,15 +19,39 @@ final readonly class ViteConfigEditor
 
     private const array CONFIG_KEY_ORDER = ['css', 'resolve', 'plugins', 'server'];
 
-    public function installAdminUi(string $source): string
+    public function installAdminUi(string $source, bool $isTypeScript = false): string
     {
+        // Abort safely on the function-form `defineConfig(() => ({ ... }))`, which we cannot
+        // merge into. Returning the source unchanged keeps the existing config intact.
+        if ($this->isFunctionFormDefineConfig($source)) {
+            return $source;
+        }
+
         $imports = $this->parseImports($source);
         $config = $this->parseDefineConfigBody($source);
 
         $imports = $this->mergeImports($imports);
         $config = $this->mergeConfig($config);
 
-        return $this->render($imports, $config);
+        return $this->render($imports, $config, $isTypeScript);
+    }
+
+    private function isFunctionFormDefineConfig(string $source): bool
+    {
+        $marker = 'defineConfig(';
+        $pos = strpos($source, $marker);
+        if ($pos === false) {
+            return false;
+        }
+
+        $pos += strlen($marker);
+        $len = strlen($source);
+        while ($pos < $len && ctype_space($source[$pos])) {
+            $pos++;
+        }
+
+        // Object form starts with `{`; anything else (e.g. `(`, identifier, `async`) is a callback.
+        return $pos < $len && $source[$pos] !== '{';
     }
 
     /**
@@ -471,10 +495,10 @@ final readonly class ViteConfigEditor
      * @param list<string> $imports
      * @param array<string, string> $config
      */
-    private function render(array $imports, array $config): string
+    private function render(array $imports, array $config, bool $isTypeScript): string
     {
         $output = implode("\n", $imports) . "\n\n";
-        $output .= $this->canonicalCraftableOverridesFunction() . "\n\n";
+        $output .= $this->canonicalCraftableOverridesFunction($isTypeScript) . "\n\n";
         $output .= "export default defineConfig({\n";
 
         $remaining = $config;
@@ -491,13 +515,15 @@ final readonly class ViteConfigEditor
         return $output . "});\n";
     }
 
-    private function canonicalCraftableOverridesFunction(): string
+    private function canonicalCraftableOverridesFunction(bool $isTypeScript): string
     {
+        $sourceParam = $isTypeScript ? 'source: string' : 'source';
+
         return "function craftableOverrides() {\n"
             . "    const prefix = '@craftable/';\n"
             . "    return {\n"
             . "        name: 'craftable-overrides',\n"
-            . "        resolveId(source) {\n"
+            . "        resolveId(" . $sourceParam . ") {\n"
             . "            if (!source.startsWith(prefix)) return null;\n"
             . "            const file = source.slice(prefix.length);\n"
             . "            const projectPath = path.resolve('resources/js/admin', file);\n"
