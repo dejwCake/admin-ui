@@ -74,6 +74,50 @@ final class ViteConfigEditorTest extends TestCase
 
         TS;
 
+    private const string BASE_REACT_VITE_CONFIG = <<<'TS'
+        import { wayfinder } from '@laravel/vite-plugin-wayfinder';
+        import tailwindcss from '@tailwindcss/vite';
+        import react from '@vitejs/plugin-react';
+        import laravel from 'laravel-vite-plugin';
+        import { defineConfig } from 'vite';
+
+        export default defineConfig({
+            plugins: [
+                laravel({
+                    input: ['resources/css/app.css', 'resources/js/app.tsx'],
+                    refresh: true,
+                }),
+                react({
+                    babel: {
+                        plugins: ['babel-plugin-react-compiler'],
+                    },
+                }),
+                tailwindcss(),
+                wayfinder({
+                    formVariants: true,
+                }),
+            ],
+        });
+
+        TS;
+
+    private const string REACT_WITH_EXISTING_EXCLUDE_VITE_CONFIG = <<<'TS'
+        import react from '@vitejs/plugin-react';
+        import laravel from 'laravel-vite-plugin';
+        import { defineConfig } from 'vite';
+
+        export default defineConfig({
+            plugins: [
+                laravel({
+                    input: ['resources/css/app.css', 'resources/js/app.tsx'],
+                    refresh: true,
+                }),
+                react({ exclude: [/\.solid\.tsx$/] }),
+            ],
+        });
+
+        TS;
+
     private const string FUNCTION_FORM_VITE_CONFIG = <<<'TS'
         import { defineConfig } from 'vite';
         import laravel from 'laravel-vite-plugin';
@@ -242,6 +286,51 @@ final class ViteConfigEditorTest extends TestCase
         $result = $this->viteConfigEditor->installAdminUi(self::BASE_LARAVEL_VITE_CONFIG);
 
         self::assertStringNotContainsString("command: 'true'", $result);
+    }
+
+    public function testInstallExcludesAdminTreeFromReactPlugin(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_REACT_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString('exclude: [/node_modules/, /resources[\\\\/]js[\\\\/]admin[\\\\/]/]', $result);
+    }
+
+    public function testInstallKeepsReactCompilerBabelPlugin(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_REACT_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString("plugins: ['babel-plugin-react-compiler']", $result);
+    }
+
+    public function testInstallReactExcludeIsIdempotent(): void
+    {
+        $first = $this->viteConfigEditor->installAdminUi(self::BASE_REACT_VITE_CONFIG, isTypeScript: true);
+        $second = $this->viteConfigEditor->installAdminUi($first, isTypeScript: true);
+
+        self::assertSame($first, $second);
+        self::assertSame(1, substr_count($second, 'exclude:'));
+        self::assertSame(1, substr_count($second, 'resources[\\\\/]js[\\\\/]admin[\\\\/]'));
+    }
+
+    public function testInstallAppendsAdminPatternToExistingReactExclude(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(
+            self::REACT_WITH_EXISTING_EXCLUDE_VITE_CONFIG,
+            isTypeScript: true,
+        );
+
+        // The pre-existing exclude entry is preserved and the admin pattern is appended.
+        self::assertStringContainsString(
+            'exclude: [/\.solid\.tsx$/, /resources[\\\\/]js[\\\\/]admin[\\\\/]/]',
+            $result,
+        );
+    }
+
+    public function testInstallWithoutReactPluginDoesNotAddExclude(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringNotContainsString('exclude:', $result);
     }
 
     public function testInstallLeavesFunctionFormConfigUnchanged(): void

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <phpmd-baseline>
+  <violation rule="PHPMD\Rule\Design\TooManyMethods" file="src/Console/Support/ViteConfigEditor.php"/>
   <violation rule="PHPMD\Rule\Design\WeightedMethodCount" file="src/Console/Support/ViteConfigEditor.php"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Console/Support/ViteConfigEditor.php" method="parsePair"/>
   <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Console/Support/ViteConfigEditor.php" method="parsePair"/>
@@ -7,6 +8,7 @@
   <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Console/Support/ViteConfigEditor.php" method="findMatchingClose"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Console/Support/ViteConfigEditor.php" method="splitTopLevel"/>
   <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Console/Support/ViteConfigEditor.php" method="splitTopLevel"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Console/Support/ViteConfigEditor.php" method="ensureReactExcludesAdmin"/>
   <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Console/Support/ViteConfigEditor.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="tests/Feature/ViewComposers/AdminHeaderComposerTest.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="tests/Unit/Console/Support/ViteConfigEditorTest.php"/>

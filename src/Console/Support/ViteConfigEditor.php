@@ -357,16 +357,7 @@ final readonly class ViteConfigEditor
             return $config;
         }
 
-        $plugins = $this->parsePluginsArray($config['plugins']);
-
-        foreach ($plugins as $i => $plugin) {
-            if ($plugin['name'] === 'laravel') {
-                $plugins[$i]['raw'] = $this->ensureLaravelInputs($plugin['raw']);
-            }
-            if ($plugin['name'] === 'wayfinder') {
-                $plugins[$i]['raw'] = $this->disableWayfinderCommand($plugin['raw']);
-            }
-        }
+        $plugins = $this->transformPlugins($this->parsePluginsArray($config['plugins']));
 
         if (!$this->hasPlugin($plugins, 'craftableOverrides')) {
             array_unshift($plugins, ['name' => 'craftableOverrides', 'raw' => 'craftableOverrides()']);
@@ -385,6 +376,26 @@ final readonly class ViteConfigEditor
         $config['plugins'] = $this->renderPluginsArray($plugins);
 
         return $config;
+    }
+
+    /**
+     * Rewrite the starter-kit plugins we need to adjust for the Vue admin to work alongside them.
+     *
+     * @param list<array{name: string, raw: string}> $plugins
+     * @return list<array{name: string, raw: string}>
+     */
+    private function transformPlugins(array $plugins): array
+    {
+        foreach ($plugins as $i => $plugin) {
+            $plugins[$i]['raw'] = match ($plugin['name']) {
+                'laravel' => $this->ensureLaravelInputs($plugin['raw']),
+                'wayfinder' => $this->disableWayfinderCommand($plugin['raw']),
+                'react' => $this->ensureReactExcludesAdmin($plugin['raw']),
+                default => $plugin['raw'],
+            };
+        }
+
+        return $plugins;
     }
 
     /**
@@ -507,6 +518,77 @@ final readonly class ViteConfigEditor
         }
 
         return substr($raw, 0, $open + 1) . '{ ' . implode(', ', $rendered) . ' }' . substr($raw, $close);
+    }
+
+    /**
+     * Keep the React plugin (and the React Compiler) away from the Vue admin tree.
+     *
+     * The React starter kits register `@vitejs/plugin-react` with `babel-plugin-react-compiler`,
+     * which by default compiles every js/ts file outside node_modules. That makes it also rewrite
+     * the Craftable admin's Vue composables (useAppForm, useAppListing, ...): the compiler mistakes
+     * their `use*` names for React hooks and injects `useMemoCache()` calls. At runtime Vue invokes
+     * them with React's dispatcher unset, throwing "Cannot read properties of null (reading
+     * 'useMemoCache')". Excluding `resources/js/admin/` from the plugin avoids this. The plugin's
+     * `exclude` default is `/node_modules/`, so we re-list it. Existing options and any pre-existing
+     * `exclude` entries are preserved, and the call is left untouched once the admin path is present.
+     */
+    private function ensureReactExcludesAdmin(string $raw): string
+    {
+        $open = strpos($raw, '(');
+        if ($open === false) {
+            return $raw;
+        }
+
+        $close = $this->findMatchingClose($raw, $open);
+        if ($close === null) {
+            return $raw;
+        }
+
+        $args = trim(substr($raw, $open + 1, $close - $open - 1));
+        if ($args !== '' && (!str_starts_with($args, '{') || !str_ends_with($args, '}'))) {
+            return $raw;
+        }
+
+        $options = $args === '' ? [] : $this->parseObjectEntries(substr($args, 1, -1));
+
+        if (isset($options['exclude']) && str_contains($options['exclude'], 'admin')) {
+            return $raw;
+        }
+
+        $options['exclude'] = $this->adminScopedExclude($options['exclude'] ?? null);
+
+        $rendered = [];
+        foreach ($options as $key => $value) {
+            $rendered[] = sprintf('%s: %s', $key, $value);
+        }
+
+        return substr($raw, 0, $open + 1) . '{ ' . implode(', ', $rendered) . ' }' . substr($raw, $close);
+    }
+
+    private function adminScopedExclude(?string $existing): string
+    {
+        $adminPattern = '/resources[\\\\/]js[\\\\/]admin[\\\\/]/';
+
+        if ($existing === null) {
+            return '[/node_modules/, ' . $adminPattern . ']';
+        }
+
+        return $this->appendToArrayLiteral($existing, $adminPattern);
+    }
+
+    private function appendToArrayLiteral(string $arrayLiteral, string $item): string
+    {
+        $arrayLiteral = trim($arrayLiteral);
+        if (!str_starts_with($arrayLiteral, '[') || !str_ends_with($arrayLiteral, ']')) {
+            return $arrayLiteral;
+        }
+
+        $inner = trim(substr($arrayLiteral, 1, -1));
+        if ($inner === '') {
+            return '[' . $item . ']';
+        }
+
+        return '[' . $inner . ', ' . $item . ']';
     }
 
     /**
