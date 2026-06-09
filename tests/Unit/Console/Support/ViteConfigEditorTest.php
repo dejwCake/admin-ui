@@ -220,6 +220,30 @@ final class ViteConfigEditorTest extends TestCase
         self::assertSame($first, $second);
     }
 
+    public function testInstallDisablesWayfinderPhpCommand(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        // Wayfinder no longer shells out to php on build; existing options are preserved.
+        self::assertStringContainsString("wayfinder({ formVariants: true, command: 'true' })", $result);
+    }
+
+    public function testInstallDisablingWayfinderCommandIsIdempotent(): void
+    {
+        $first = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+        $second = $this->viteConfigEditor->installAdminUi($first, isTypeScript: true);
+
+        self::assertSame($first, $second);
+        self::assertSame(1, substr_count($second, "command: 'true'"));
+    }
+
+    public function testInstallWithoutWayfinderDoesNotAddCommand(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_LARAVEL_VITE_CONFIG);
+
+        self::assertStringNotContainsString("command: 'true'", $result);
+    }
+
     public function testInstallLeavesFunctionFormConfigUnchanged(): void
     {
         $result = $this->viteConfigEditor->installAdminUi(self::FUNCTION_FORM_VITE_CONFIG, isTypeScript: true);
