@@ -36,6 +36,59 @@ final class ViteConfigEditorTest extends TestCase
 
         JS;
 
+    private const string BASE_INERTIA_VITE_CONFIG = <<<'TS'
+        import inertia from '@inertiajs/vite';
+        import { wayfinder } from '@laravel/vite-plugin-wayfinder';
+        import tailwindcss from '@tailwindcss/vite';
+        import vue from '@vitejs/plugin-vue';
+        import laravel from 'laravel-vite-plugin';
+        import { bunny } from 'laravel-vite-plugin/fonts';
+        import { defineConfig } from 'vite';
+
+        export default defineConfig({
+            plugins: [
+                laravel({
+                    input: ['resources/css/app.css', 'resources/js/app.ts'],
+                    refresh: true,
+                    fonts: [
+                        bunny('Instrument Sans', {
+                            weights: [400, 500, 600],
+                        }),
+                    ],
+                }),
+                inertia(),
+                tailwindcss(),
+                vue({
+                    template: {
+                        transformAssetUrls: {
+                            base: null,
+                            includeAbsolute: false,
+                        },
+                    },
+                }),
+                wayfinder({
+                    formVariants: true,
+                }),
+            ],
+        });
+
+        TS;
+
+    private const string FUNCTION_FORM_VITE_CONFIG = <<<'TS'
+        import { defineConfig } from 'vite';
+        import laravel from 'laravel-vite-plugin';
+
+        export default defineConfig(() => ({
+            plugins: [
+                laravel({
+                    input: ['resources/css/app.css', 'resources/js/app.ts'],
+                    refresh: true,
+                }),
+            ],
+        }));
+
+        TS;
+
     #[Override]
     protected function setUp(): void
     {
@@ -102,5 +155,75 @@ final class ViteConfigEditorTest extends TestCase
         self::assertSame(1, substr_count($second, "import vue from '@vitejs/plugin-vue';"));
         self::assertSame(1, substr_count($second, "import path from 'path';"));
         self::assertSame(1, substr_count($second, "import fs from 'fs';"));
+    }
+
+    public function testInstallOnInertiaConfigAddsCraftableOverridesAsFirstPlugin(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString("plugins: [\n        craftableOverrides(),\n        laravel(", $result);
+    }
+
+    public function testInstallOnInertiaConfigPreservesStarterKitPlugins(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString('inertia()', $result);
+        self::assertStringContainsString('wayfinder({', $result);
+        self::assertStringContainsString("bunny('Instrument Sans'", $result);
+        // The existing vue() plugin is kept; a second one is not appended.
+        self::assertSame(1, substr_count($result, 'vue({'));
+    }
+
+    public function testInstallOnInertiaConfigPreservesTypeScriptEntryAndAddsAdminInputs(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString("'resources/js/app.ts',", $result);
+        self::assertStringContainsString("'resources/css/admin/admin.scss',", $result);
+        self::assertStringContainsString("'resources/js/admin/admin.js',", $result);
+    }
+
+    public function testInstallOnInertiaConfigInjectsResolveAndCss(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString("vue: 'vue/dist/vue.esm-bundler.js',", $result);
+        self::assertStringContainsString("axios: path.resolve('node_modules/axios/dist/esm/axios.js'),", $result);
+        self::assertStringContainsString(
+            "silenceDeprecations: ['import', 'global-builtin', 'color-functions'],",
+            $result,
+        );
+    }
+
+    public function testInstallOnTypeScriptConfigEmitsTypedResolveId(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+
+        self::assertStringContainsString('resolveId(source: string) {', $result);
+        self::assertStringNotContainsString('resolveId(source) {', $result);
+    }
+
+    public function testInstallOnJavaScriptConfigEmitsUntypedResolveId(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_LARAVEL_VITE_CONFIG);
+
+        self::assertStringContainsString('resolveId(source) {', $result);
+        self::assertStringNotContainsString('resolveId(source: string) {', $result);
+    }
+
+    public function testInstallOnInertiaConfigIsIdempotent(): void
+    {
+        $first = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);
+        $second = $this->viteConfigEditor->installAdminUi($first, isTypeScript: true);
+
+        self::assertSame($first, $second);
+    }
+
+    public function testInstallLeavesFunctionFormConfigUnchanged(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::FUNCTION_FORM_VITE_CONFIG, isTypeScript: true);
+
+        self::assertSame(self::FUNCTION_FORM_VITE_CONFIG, $result);
     }
 }
