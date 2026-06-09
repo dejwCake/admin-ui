@@ -363,6 +363,9 @@ final readonly class ViteConfigEditor
             if ($plugin['name'] === 'laravel') {
                 $plugins[$i]['raw'] = $this->ensureLaravelInputs($plugin['raw']);
             }
+            if ($plugin['name'] === 'wayfinder') {
+                $plugins[$i]['raw'] = $this->disableWayfinderCommand($plugin['raw']);
+            }
         }
 
         if (!$this->hasPlugin($plugins, 'craftableOverrides')) {
@@ -460,6 +463,50 @@ final readonly class ViteConfigEditor
         $rendered .= '            ]';
 
         return substr($raw, 0, $arrayStart) . $rendered . substr($raw, $arrayEnd + 1);
+    }
+
+    /**
+     * Neutralize the Wayfinder vite plugin's command so the frontend build never shells
+     * out to `php`. The starter kits' `wayfinder()` plugin runs `php artisan
+     * wayfinder:generate` on every build/dev, but the build runs in a node-only
+     * container without PHP. Setting `command: 'true'` turns it into a no-op; the
+     * Wayfinder files generated during installation stay in place (regenerate them with
+     * `php artisan wayfinder:generate` when routes change). Existing options (e.g.
+     * formVariants) are preserved and the call is left untouched if already neutralized.
+     */
+    private function disableWayfinderCommand(string $raw): string
+    {
+        $open = strpos($raw, '(');
+        if ($open === false) {
+            return $raw;
+        }
+
+        $close = $this->findMatchingClose($raw, $open);
+        if ($close === null) {
+            return $raw;
+        }
+
+        $args = trim(substr($raw, $open + 1, $close - $open - 1));
+
+        $options = [];
+        if ($args !== '') {
+            if (!str_starts_with($args, '{') || !str_ends_with($args, '}')) {
+                return $raw;
+            }
+            $options = $this->parseObjectEntries(substr($args, 1, -1));
+        }
+
+        if (($options['command'] ?? null) === "'true'") {
+            return $raw;
+        }
+        $options['command'] = "'true'";
+
+        $rendered = [];
+        foreach ($options as $key => $value) {
+            $rendered[] = sprintf('%s: %s', $key, $value);
+        }
+
+        return substr($raw, 0, $open + 1) . '{ ' . implode(', ', $rendered) . ' }' . substr($raw, $close);
     }
 
     /**
