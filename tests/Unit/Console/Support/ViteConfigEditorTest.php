@@ -118,6 +118,22 @@ final class ViteConfigEditorTest extends TestCase
 
         TS;
 
+    private const string MISSING_DEFINE_CONFIG_IMPORT_VITE_CONFIG = <<<'JS'
+        import laravel from 'laravel-vite-plugin';
+        import tailwindcss from '@tailwindcss/vite';
+
+        export default defineConfig({
+            plugins: [
+                laravel({
+                    input: ['resources/css/app.css', 'resources/js/app.js'],
+                    refresh: true,
+                }),
+                tailwindcss(),
+            ],
+        });
+
+        JS;
+
     private const string FUNCTION_FORM_VITE_CONFIG = <<<'TS'
         import { defineConfig } from 'vite';
         import laravel from 'laravel-vite-plugin';
@@ -199,6 +215,21 @@ final class ViteConfigEditorTest extends TestCase
         self::assertSame(1, substr_count($second, "import vue from '@vitejs/plugin-vue';"));
         self::assertSame(1, substr_count($second, "import path from 'path';"));
         self::assertSame(1, substr_count($second, "import fs from 'fs';"));
+    }
+
+    public function testInstallDoesNotDuplicateDefineConfigImportWhenAlreadyPresent(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_LARAVEL_VITE_CONFIG);
+
+        self::assertSame(1, substr_count($result, "import { defineConfig } from 'vite';"));
+    }
+
+    public function testInstallAddsDefineConfigImportWhenMissing(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::MISSING_DEFINE_CONFIG_IMPORT_VITE_CONFIG);
+
+        self::assertStringContainsString("import { defineConfig } from 'vite';", $result);
+        self::assertSame(1, substr_count($result, "import { defineConfig } from 'vite';"));
     }
 
     public function testInstallOnInertiaConfigAddsCraftableOverridesAsFirstPlugin(): void

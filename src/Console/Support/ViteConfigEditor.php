@@ -12,6 +12,7 @@ final readonly class ViteConfigEditor
     ];
 
     private const array REQUIRED_IMPORTS = [
+        ["import { defineConfig } from 'vite';", 'defineConfig'],
         ["import vue from '@vitejs/plugin-vue';", '@vitejs/plugin-vue'],
         ["import path from 'path';", "from 'path'"],
         ["import fs from 'fs';", "from 'fs'"],
