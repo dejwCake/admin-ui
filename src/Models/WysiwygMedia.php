@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Brackets\AdminUI\Models;
 
+use Brackets\AdminUI\Observers\WysiwygMediaObserver;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Filesystem\Filesystem;
 
 /**
  * @property int $id
@@ -18,26 +20,10 @@ use Illuminate\Filesystem\Filesystem;
  * @property CarbonInterface|null $updated_at
  * @property-read Model|null $wysiwygable
  */
+#[Fillable(['file_path'])]
+#[ObservedBy(WysiwygMediaObserver::class)]
 final class WysiwygMedia extends Model
 {
-    /**
-     * @var array<string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     */
-    protected $fillable = [
-        'file_path',
-    ];
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        $filesystem = app(Filesystem::class);
-        self::deleted(static function ($model) use ($filesystem): void {
-            $filesystem->delete(public_path() . '/' . $model->file_path);
-        });
-    }
-
     public function wysiwygable(): MorphTo
     {
         return $this->morphTo();
