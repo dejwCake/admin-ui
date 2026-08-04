@@ -21,14 +21,8 @@ final class HasWysiwygMediaTraitTest extends TestCase
 
         $schemaBuilder = $this->app['db']->connection()->getSchemaBuilder();
 
-        $schemaBuilder->create('wysiwyg_media', static function (Blueprint $table): void {
-            $table->id();
-            $table->string('file_path');
-            $table->unsignedInteger('wysiwygable_id')->nullable()->index();
-            $table->string('wysiwygable_type')->nullable();
-            $table->timestamps();
-        });
-
+        // wysiwyg_media comes from the package migration (see TestCase); only the
+        // test-support table is built here.
         $schemaBuilder->create('test_wysiwygable_models', static function (Blueprint $table): void {
             $table->id();
             $table->string('name');

@@ -7,12 +7,6 @@ parameters:
 			path: config/wysiwyg-media.php
 
 		-
-			message: '#^PHPDoc type array\<string\> of property Brackets\\AdminUI\\Models\\WysiwygMedia\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: src/Models/WysiwygMedia.php
-
-		-
 			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphTo'' and Illuminate\\Database\\Eloquent\\Relations\\MorphTo will always evaluate to true\.$#'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1

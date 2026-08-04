@@ -6,7 +6,6 @@ namespace Brackets\AdminUI\Tests\Feature\Http\Controllers\WysiwygMediaUploadCont
 
 use Brackets\AdminUI\Models\WysiwygMedia;
 use Brackets\AdminUI\Tests\TestCase;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
 use Override;
@@ -24,17 +23,6 @@ final class UploadTest extends TestCase
 
         $this->uploadDir = sys_get_temp_dir() . '/admin-ui-test-uploads-' . uniqid();
         mkdir($this->uploadDir, 0755, true);
-
-        $this->app['db']->connection()->getSchemaBuilder()->create(
-            'wysiwyg_media',
-            static function (Blueprint $table): void {
-                $table->id();
-                $table->string('file_path');
-                $table->unsignedInteger('wysiwygable_id')->nullable()->index();
-                $table->string('wysiwygable_type')->nullable();
-                $table->timestamps();
-            },
-        );
 
         // Use a real ImageManager with GD driver — final class can't be mocked
         $imageManager = ImageManager::gd();

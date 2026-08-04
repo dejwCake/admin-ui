@@ -7,29 +7,10 @@ namespace Brackets\AdminUI\Tests\Feature\Models;
 use Brackets\AdminUI\Models\WysiwygMedia;
 use Brackets\AdminUI\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Filesystem\Filesystem;
-use Override;
 
 final class WysiwygMediaTest extends TestCase
 {
-    #[Override]
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app['db']->connection()->getSchemaBuilder()->create(
-            'wysiwyg_media',
-            static function (Blueprint $table): void {
-                $table->id();
-                $table->string('file_path');
-                $table->unsignedInteger('wysiwygable_id')->nullable()->index();
-                $table->string('wysiwygable_type')->nullable();
-                $table->timestamps();
-            },
-        );
-    }
-
     public function testFillableContainsFilePath(): void
     {
         $model = new WysiwygMedia();
