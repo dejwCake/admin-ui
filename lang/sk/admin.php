@@ -9,6 +9,8 @@ return [
         'succeeded' => 'Akcia prebehla úspešne',
         'failed' => 'Akcia sa nepodarila',
         'not_allowed' => 'Operácia nie je povolená',
+        'impersonal_login' => 'Prihlásiť sa ako',
+        'resend_activation' => 'Znova odoslať aktiváciu',
         'publish_now' => 'Publikovať',
         'unpublish_now' => 'Zrušiť publikovanie',
         'publish_later' => 'Publikovať neskôr',

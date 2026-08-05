@@ -9,6 +9,8 @@ return [
         'succeeded' => 'Operation successful',
         'failed' => 'Operation failed',
         'not_allowed' => 'Operation not allowed',
+        'impersonal_login' => 'Impersonal login',
+        'resend_activation' => 'Resend activation',
         'publish_now' => 'Publish now',
         'unpublish_now' => 'Unpublish now',
         'publish_later' => 'Publish later',
