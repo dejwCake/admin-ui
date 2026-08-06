@@ -9,6 +9,7 @@ return [
         'succeeded' => 'Akcia prebehla úspešne',
         'failed' => 'Akcia sa nepodarila',
         'not_allowed' => 'Operácia nie je povolená',
+        'admin_user_not_found' => 'Správca sa nenašiel',
         'impersonal_login' => 'Prihlásiť sa ako',
         'resend_activation' => 'Znova odoslať aktiváciu',
         'publish_now' => 'Publikovať',

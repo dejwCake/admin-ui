@@ -9,6 +9,7 @@ return [
         'succeeded' => 'Operation successful',
         'failed' => 'Operation failed',
         'not_allowed' => 'Operation not allowed',
+        'admin_user_not_found' => 'Admin User not found',
         'impersonal_login' => 'Impersonal login',
         'resend_activation' => 'Resend activation',
         'publish_now' => 'Publish now',
