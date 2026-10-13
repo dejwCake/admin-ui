@@ -83,6 +83,8 @@ return [
         'search' => 'Search',
         'new' => 'New',
         'saved' => 'Saved',
+        'show' => 'Show',
+        'back' => 'Back',
     ],
 
     'index' => [
