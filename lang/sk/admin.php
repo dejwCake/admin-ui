@@ -88,6 +88,8 @@ return [
     'index' => [
         'no_items' => 'Nenašli sa žiadne položky',
         'try_changing_items' => 'Skúste zmeniť filter alebo pridať novú',
+        'try_changing_filters' => 'Skúste zmeniť filter',
+        'try_changing_filters_or_add_new' => 'Skúste zmeniť filter alebo pridať novú',
     ],
 
     'listing' => [

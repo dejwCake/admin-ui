@@ -90,6 +90,8 @@ return [
     'index' => [
         'no_items' => 'Could not find any items',
         'try_changing_items' => 'Try changing the filters or add a new one',
+        'try_changing_filters' => 'Try changing the filters',
+        'try_changing_filters_or_add_new' => 'Try changing the filters or add a new one',
     ],
 
     'listing' => [
