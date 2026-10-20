@@ -7,7 +7,6 @@ namespace Brackets\AdminUI;
 use Brackets\AdminUI\Console\Commands\AdminUIInstall;
 use Brackets\AdminUI\Providers\ViewComposerProvider;
 use Illuminate\Support\ServiceProvider;
-use Intervention\Image\ImageManager;
 
 final class AdminUIServiceProvider extends ServiceProvider
 {
@@ -25,8 +24,6 @@ final class AdminUIServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/wysiwyg-media.php', 'wysiwyg-media');
-
-        $this->app->alias('image', ImageManager::class);
 
         $this->app->register(ViewComposerProvider::class);
 

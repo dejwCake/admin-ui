@@ -7,6 +7,7 @@ namespace Brackets\AdminUI\Tests\Feature\Http\Controllers\WysiwygMediaUploadCont
 use Brackets\AdminUI\Models\WysiwygMedia;
 use Brackets\AdminUI\Tests\TestCase;
 use Illuminate\Http\UploadedFile;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Override;
 use RecursiveDirectoryIterator;
@@ -25,9 +26,7 @@ final class UploadTest extends TestCase
         mkdir($this->uploadDir, 0755, true);
 
         // Use a real ImageManager with GD driver — final class can't be mocked
-        $imageManager = ImageManager::gd();
-        $this->app->instance(ImageManager::class, $imageManager);
-        $this->app->instance('image', $imageManager);
+        $this->app->instance(ImageManager::class, new ImageManager(Driver::class));
 
         // Configure media folder to use temp directory
         $this->app['config']->set('wysiwyg-media.media_folder', $this->uploadDir . '/uploads');

@@ -41,7 +41,7 @@
         "php": "^8.5",
         "arondeparon/laravel-request-sanitizer": "^6.2",
         "illuminate/support": "^13.0",
-        "intervention/image-laravel": "^1.5.7",
+        "intervention/image-laravel": "^4.1.1",
         "spatie/image-optimizer": "^1.8"
     },
     "require-dev": {

@@ -1,5 +1,17 @@
 # Upgrade Guide: v1 to v2
 
+## 2.4.0: Intervention Image 4
+
+Since 2.4.0, `intervention/image-laravel` is `^4.1.1` (was `^1.5.7`), which pulls in `intervention/image` 4.
+Act only if your project uses Intervention directly:
+
+- `ImageManager::read()` was removed — use `decode()` / `decodePath()` / `decodeBinary()`.
+- `ImageManager::gd()` / `::imagick()` were removed — use `new ImageManager(Driver::class)`.
+- The container binding `image` is now `intervention.image`; prefer injecting `ImageManager` or
+  `ImageManagerInterface`.
+- A published `config/image.php` is no longer read — move it to `config/intervention-image.php`
+  (option `blendingColor` is now `backgroundColor`).
+
 ## Requirements
 
 - PHP ^8.5 (was ^8.2)

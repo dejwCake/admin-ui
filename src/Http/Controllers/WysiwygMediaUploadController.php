@@ -45,7 +45,7 @@ final class WysiwygMediaUploadController extends BaseController
         }
 
         // resize and save image
-        $imageManager->read($temporaryFile->path())
+        $imageManager->decodePath($temporaryFile->path())
             ->scaleDown($config->get('wysiwyg-media.maximum_image_width'))
             ->save($savedPath);
 
