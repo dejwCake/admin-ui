@@ -22,6 +22,12 @@ return [
         'confirm_delete_title' => 'Zmazanie',
         'confirm_delete_text' => 'Naozaj chcete zmazať položku?',
         'confirm_delete_text_multiple' => 'Naozaj chcete zmazať :number zvolených položiek?',
+        'confirm_force_delete_text' => 'Natrvalo zmazať položku? Nedá sa to vrátiť.',
+        'confirm_force_delete_text_multiple' => 'Natrvalo zmazať :number zvolených položiek? Nedá sa to vrátiť.',
+        'confirm_restore_title' => 'Obnovenie',
+        'confirm_restore_text' => 'Naozaj chcete obnoviť položku?',
+        'confirm_restore_text_multiple' => 'Naozaj chcete obnoviť :number zvolených položiek?',
+        'not_restorable' => 'Položku nie je možné obnoviť, položka, ku ktorej patrí, je zmazaná.',
     ],
 
     'dialogs' => [
@@ -81,6 +87,8 @@ return [
         'cancel' => 'Zrušiť',
         'edit' => 'Upraviť',
         'delete' => 'Vymazať',
+        'force_delete' => 'Zmazať natrvalo',
+        'restore' => 'Obnoviť',
         'search' => 'Hľadať',
         'saved' => 'Uložené',
     ],
@@ -96,6 +104,7 @@ return [
         'selected_items' => 'Vybrané položky',
         'uncheck_all_items' => 'Odznačiť všetky položky',
         'check_all_items' => 'Označiť všetky položky',
+        'show_deleted' => 'Zobraziť zmazané',
     ],
 
     'forms' => [

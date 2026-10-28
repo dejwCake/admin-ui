@@ -21,6 +21,12 @@ return [
         'confirm_delete_title' => 'Deletion',
         'confirm_delete_text' => 'Do you really want to delete this item?',
         'confirm_delete_text_multiple' => 'Do you really want to delete :number selected items?',
+        'confirm_force_delete_text' => 'Delete this item permanently? This cannot be undone.',
+        'confirm_force_delete_text_multiple' => 'Delete :number selected items permanently? This cannot be undone.',
+        'confirm_restore_title' => 'Restore',
+        'confirm_restore_text' => 'Do you really want to restore this item?',
+        'confirm_restore_text_multiple' => 'Do you really want to restore :number selected items?',
+        'not_restorable' => 'This item cannot be restored, an item it belongs to is deleted.',
     ],
 
     'dialogs' => [
@@ -80,6 +86,8 @@ return [
         'cancel' => 'Cancel',
         'edit' => 'Edit',
         'delete' => 'Delete',
+        'force_delete' => 'Delete permanently',
+        'restore' => 'Restore',
         'search' => 'Search',
         'new' => 'New',
         'saved' => 'Saved',
@@ -98,6 +106,7 @@ return [
         'selected_items' => 'Selected items',
         'uncheck_all_items' => 'Uncheck all items',
         'check_all_items' => 'Check all items',
+        'show_deleted' => 'Show deleted',
     ],
 
     'forms' => [
