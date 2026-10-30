@@ -28,6 +28,9 @@ return [
         'confirm_restore_text' => 'Naozaj chcete obnoviť položku?',
         'confirm_restore_text_multiple' => 'Naozaj chcete obnoviť :number zvolených položiek?',
         'not_restorable' => 'Položku nie je možné obnoviť, položka, ku ktorej patrí, je zmazaná.',
+        'restore_skipped' => 'Neobnovené položky: :count, položka, ku ktorej patria, je zmazaná.',
+        'restore_failed' => 'Položku nie je možné obnoviť, už existuje iná s rovnakou hodnotou.',
+        'force_delete_failed' => 'Položku nie je možné natrvalo zmazať, odkazujú na ňu iné položky.',
     ],
 
     'dialogs' => [

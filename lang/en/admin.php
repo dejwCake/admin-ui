@@ -27,6 +27,9 @@ return [
         'confirm_restore_text' => 'Do you really want to restore this item?',
         'confirm_restore_text_multiple' => 'Do you really want to restore :number selected items?',
         'not_restorable' => 'This item cannot be restored, an item it belongs to is deleted.',
+        'restore_skipped' => ':count items were not restored, an item they belong to is deleted.',
+        'restore_failed' => 'The item cannot be restored, another item with the same value exists.',
+        'force_delete_failed' => 'The item cannot be deleted permanently, other items still refer to it.',
     ],
 
     'dialogs' => [
