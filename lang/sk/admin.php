@@ -90,7 +90,7 @@ return [
         'cancel' => 'Zrušiť',
         'edit' => 'Upraviť',
         'delete' => 'Vymazať',
-        'force_delete' => 'Zmazať natrvalo',
+        'force_delete' => 'Vymazať natrvalo',
         'restore' => 'Obnoviť',
         'search' => 'Hľadať',
         'saved' => 'Uložené',
