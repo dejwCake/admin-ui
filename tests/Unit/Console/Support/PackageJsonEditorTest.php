@@ -42,7 +42,7 @@ final class PackageJsonEditorTest extends TestCase
                 "publish:craftable-components": "craftable-publish-components"
             },
             "devDependencies": {
-                "@dejwcake/craftable": "^2.0.0",
+                "@dejwcake/craftable": "^2.5.0",
                 "@tailwindcss/vite": "^4.2.4",
                 "@vitejs/plugin-vue": "^6.0.0",
                 "axios": "^1.15.2",

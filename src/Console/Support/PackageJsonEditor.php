@@ -7,7 +7,7 @@ namespace Brackets\AdminUI\Console\Support;
 final readonly class PackageJsonEditor
 {
     private const array REQUIRED_DEV_DEPENDENCIES = [
-        '@dejwcake/craftable' => '^2.0.0',
+        '@dejwcake/craftable' => '^2.5.0',
         '@tailwindcss/vite' => '^4.2.4',
         '@vitejs/plugin-vue' => '^6.0.0',
         'axios' => '^1.15.2',
