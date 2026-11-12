@@ -1,5 +1,20 @@
 # Upgrade Guide: v1 to v2
 
+## Next v2 minor (unreleased): profile components in the install stub
+
+The `admin.js` install stub registers the components of admin-auth's profile and password pages,
+imported by path so a project copy at `resources/js/admin/account/` overrides them. Existing
+projects that switch to those pages add the same lines to `resources/js/admin/admin.js` (they need
+the matching `@dejwcake/craftable` version):
+
+```js
+import ProfileForm from '@craftable/account/ProfileForm.vue';
+import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
+
+app.component('PasswordChangeForm', PasswordChangeForm);
+app.component('ProfileForm', ProfileForm);
+```
+
 ## 2.4.0: Intervention Image 4
 
 Since 2.4.0, `intervention/image-laravel` is `^4.1.1` (was `^1.5.7`), which pulls in `intervention/image` 4.
