@@ -1,19 +1,29 @@
 # Upgrade Guide: v1 to v2
 
-## Next v2 minor (unreleased): profile components in the install stub
+## 2.6.0 (unreleased)
 
-The `admin.js` install stub registers the components of admin-auth's profile and password pages,
-imported by path so a project copy at `resources/js/admin/account/` overrides them. Existing
-projects that switch to those pages add the same lines to `resources/js/admin/admin.js` (they need
-the matching `@dejwcake/craftable` version):
+### Account and two-factor components in the install stub
+
+The `admin.js` install stub registers the components of admin-auth's profile, password and
+two-factor pages, imported by path so a project copy at `resources/js/admin/account/` or
+`resources/js/admin/auth/` overrides them. Existing projects add the same lines to
+`resources/js/admin/admin.js` (they need the matching `@dejwcake/craftable` version):
 
 ```js
+import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
 import ProfileForm from '@craftable/account/ProfileForm.vue';
 import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
+import TwoFactorSettings from '@craftable/account/TwoFactorSettings.vue';
+
+app.component('TwoFactorChallengeForm', TwoFactorChallengeForm);
 
 app.component('PasswordChangeForm', PasswordChangeForm);
 app.component('ProfileForm', ProfileForm);
+app.component('TwoFactorSettings', TwoFactorSettings);
 ```
+
+`ProfileForm` and `PasswordChangeForm` are only needed by projects on admin-auth's profile pages;
+`TwoFactorChallengeForm` and `TwoFactorSettings` by every project on the matching admin-auth.
 
 ## 2.4.0: Intervention Image 4
 

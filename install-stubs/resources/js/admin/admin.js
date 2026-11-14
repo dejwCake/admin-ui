@@ -15,8 +15,10 @@ import ForgotPasswordForm from '@craftable/auth/ForgotPasswordForm.vue';
 import ResetPasswordForm from '@craftable/auth/ResetPasswordForm.vue';
 import ActivationForm from '@craftable/auth/ActivationForm.vue';
 import ActivationError from '@craftable/auth/ActivationError.vue';
+import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
 import ProfileForm from '@craftable/account/ProfileForm.vue';
 import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
+import TwoFactorSettings from '@craftable/account/TwoFactorSettings.vue';
 //-- Do not delete me :) I'm used for auto-generation js import begin --
 //-- Do not delete me :) I'm used for auto-generation js import end --
 
@@ -36,9 +38,11 @@ app.component('ActivationForm', ActivationForm);
 app.component('ForgotPasswordForm', ForgotPasswordForm);
 app.component('LoginForm', LoginForm);
 app.component('ResetPasswordForm', ResetPasswordForm);
+app.component('TwoFactorChallengeForm', TwoFactorChallengeForm);
 
 app.component('PasswordChangeForm', PasswordChangeForm);
 app.component('ProfileForm', ProfileForm);
+app.component('TwoFactorSettings', TwoFactorSettings);
 
 app.component('TranslationListing', TranslationListing);
 
