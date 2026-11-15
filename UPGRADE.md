@@ -1,6 +1,6 @@
 # Upgrade Guide: v1 to v2
 
-## 2.6.0 (unreleased)
+## 2.7.0 (unreleased)
 
 ### Account and two-factor components in the install stub
 
