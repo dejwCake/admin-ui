@@ -1,5 +1,37 @@
 # Upgrade Guide: v1 to v2
 
+## 2.6.0: Strict package managers (pnpm)
+
+### Directly imported frontend packages in package.json
+
+The install stubs (`admin.js`, `bootstrap.js`) import some `@dejwcake/craftable` dependencies
+directly. `admin-ui:install` now declares them in the project's `package.json` too, because a
+strict package manager such as pnpm only lets a project import what it declares. Existing
+projects add them to `devDependencies` (npm projects keep working without them, but should add
+them before switching to pnpm):
+
+```json
+"@kyvg/vue3-notification": "^3.4.2",
+"@vee-validate/i18n": "^4.15.1",
+"@vee-validate/rules": "^4.15.1",
+"@vuepic/vue-datepicker": "^12.1.0",
+"vee-validate": "^4.15.1",
+"vue-multiselect": "^3.5.0"
+```
+
+### craftableOverrides resolves the package's real path
+
+pnpm symlinks `node_modules/@dejwcake/craftable`, and Vite resolves the imports of a file
+returned by a plugin from that file's location. `craftableOverrides()` in `vite.config.js` /
+`vite.config.ts` now returns the real path, so the package's own dependencies (`date-fns`, …)
+resolve inside the package. Re-running `admin-ui:install` rewrites the function; existing projects
+can change the line by hand instead:
+
+```diff
+-            if (fs.existsSync(packagePath)) return packagePath;
++            if (fs.existsSync(packagePath)) return fs.realpathSync(packagePath);
+```
+
 ## 2.4.0: Intervention Image 4
 
 Since 2.4.0, `intervention/image-laravel` is `^4.1.1` (was `^1.5.7`), which pulls in `intervention/image` 4.

@@ -15,7 +15,8 @@ function craftableOverrides() {
             const projectPath = path.resolve('resources/js/admin', file);
             if (fs.existsSync(projectPath)) return projectPath;
             const packagePath = path.resolve('node_modules/@dejwcake/craftable/src', file);
-            if (fs.existsSync(packagePath)) return packagePath;
+            // The real path, so the package's imports resolve from its location (pnpm symlinks it).
+            if (fs.existsSync(packagePath)) return fs.realpathSync(packagePath);
             return null;
         },
     };
