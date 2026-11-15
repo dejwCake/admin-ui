@@ -7,8 +7,9 @@
 The install stubs (`admin.js`, `bootstrap.js`) import some `@dejwcake/craftable` dependencies
 directly. `admin-ui:install` now declares them in the project's `package.json` too, because a
 strict package manager such as pnpm only lets a project import what it declares. Existing
-projects add them to `devDependencies` (npm projects keep working without them, but should add
-them before switching to pnpm):
+projects add them to `devDependencies`, or raise the version in `dependencies` where a package is
+already declared there (npm projects keep working without them, but should add them before
+switching to pnpm):
 
 ```json
 "@kyvg/vue3-notification": "^3.4.2",
@@ -16,6 +17,7 @@ them before switching to pnpm):
 "@vee-validate/rules": "^4.15.1",
 "@vuepic/vue-datepicker": "^12.1.0",
 "vee-validate": "^4.15.1",
+"vue": "^3.5.0",
 "vue-multiselect": "^3.5.0"
 ```
 
@@ -24,11 +26,13 @@ them before switching to pnpm):
 pnpm symlinks `node_modules/@dejwcake/craftable`, and Vite resolves the imports of a file
 returned by a plugin from that file's location. `craftableOverrides()` in `vite.config.js` /
 `vite.config.ts` now returns the real path, so the package's own dependencies (`date-fns`, …)
-resolve inside the package. Re-running `admin-ui:install` rewrites the function; existing projects
-can change the line by hand instead:
+resolve inside the package. Re-running `admin-ui:install` rewrites the function, except in a
+config using the function form `defineConfig(() => ({ ... }))`, which the installer leaves
+untouched. There, or instead of re-running it, change the line by hand:
 
 ```diff
 -            if (fs.existsSync(packagePath)) return packagePath;
++            // The real path, so the package's imports resolve from its location (pnpm symlinks it).
 +            if (fs.existsSync(packagePath)) return fs.realpathSync(packagePath);
 ```
 

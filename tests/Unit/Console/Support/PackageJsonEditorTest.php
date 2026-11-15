@@ -56,6 +56,7 @@ final class PackageJsonEditorTest extends TestCase
                 "tailwindcss": "^4.2.4",
                 "vee-validate": "^4.15.1",
                 "vite": "^8.0.0",
+                "vue": "^3.5.0",
                 "vue-multiselect": "^3.5.0"
             }
         }
@@ -149,6 +150,24 @@ final class PackageJsonEditorTest extends TestCase
         self::assertArrayNotHasKey('tailwindcss', $decoded['devDependencies']);
     }
 
+    public function testExistingDevDependencyIsBumpedWhenAlsoDeclaredInDependencies(): void
+    {
+        $input = json_encode([
+            'devDependencies' => [
+                'tailwindcss' => '^4.0.0',
+            ],
+            'dependencies' => [
+                'tailwindcss' => '^4.0.0',
+            ],
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+
+        $result = $this->packageJsonEditor->installAdminUi($input);
+        $decoded = json_decode($result, true);
+
+        self::assertSame('^4.2.4', $decoded['devDependencies']['tailwindcss']);
+        self::assertSame('^4.2.4', $decoded['dependencies']['tailwindcss']);
+    }
+
     public function testDevDependenciesAreSortedScopedFirstThenAlphabetical(): void
     {
         $result = $this->packageJsonEditor->installAdminUi(self::BASE_PACKAGE_JSON);
@@ -170,6 +189,7 @@ final class PackageJsonEditorTest extends TestCase
                 'tailwindcss',
                 'vee-validate',
                 'vite',
+                'vue',
                 'vue-multiselect',
             ],
             array_keys($decoded['devDependencies']),

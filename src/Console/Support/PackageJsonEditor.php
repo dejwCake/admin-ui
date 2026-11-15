@@ -21,6 +21,7 @@ final readonly class PackageJsonEditor
         'sass' => '^1.99.0',
         'tailwindcss' => '^4.2.4',
         'vee-validate' => '^4.15.1',
+        'vue' => '^3.5.0',
         'vue-multiselect' => '^3.5.0',
     ];
 
@@ -40,10 +41,7 @@ final readonly class PackageJsonEditor
             $content['dependencies'] = $this->bumpDependencies($dependencies);
         }
 
-        $content['devDependencies'] = $this->mergeDevDependencies(
-            $content['devDependencies'] ?? [],
-            array_keys($dependencies),
-        );
+        $content['devDependencies'] = $this->mergeDevDependencies($content['devDependencies'] ?? [], $dependencies);
 
         return json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
     }
@@ -81,14 +79,16 @@ final readonly class PackageJsonEditor
     }
 
     /**
+     * A required package already declared in dependencies is not added here, but an existing entry is still bumped.
+     *
      * @param array<string, string> $existing
-     * @param list<string> $declaredInDependencies
+     * @param array<string, string> $dependencies
      * @return array<string, string>
      */
-    private function mergeDevDependencies(array $existing, array $declaredInDependencies): array
+    private function mergeDevDependencies(array $existing, array $dependencies): array
     {
         foreach (self::REQUIRED_DEV_DEPENDENCIES as $name => $requiredVersion) {
-            if (in_array($name, $declaredInDependencies, true)) {
+            if (isset($dependencies[$name]) && !isset($existing[$name])) {
                 continue;
             }
 
