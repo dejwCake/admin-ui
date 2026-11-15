@@ -287,6 +287,16 @@ final class ViteConfigEditorTest extends TestCase
         self::assertStringNotContainsString('resolveId(source: string) {', $result);
     }
 
+    public function testInstallResolvesPackageComponentsToTheirRealPath(): void
+    {
+        $result = $this->viteConfigEditor->installAdminUi(self::BASE_LARAVEL_VITE_CONFIG);
+
+        self::assertStringContainsString(
+            'if (fs.existsSync(packagePath)) return fs.realpathSync(packagePath);',
+            $result,
+        );
+    }
+
     public function testInstallOnInertiaConfigIsIdempotent(): void
     {
         $first = $this->viteConfigEditor->installAdminUi(self::BASE_INERTIA_VITE_CONFIG, isTypeScript: true);

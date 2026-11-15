@@ -43,14 +43,21 @@ final class PackageJsonEditorTest extends TestCase
             },
             "devDependencies": {
                 "@dejwcake/craftable": "^2.5.0",
+                "@kyvg/vue3-notification": "^3.4.2",
                 "@tailwindcss/vite": "^4.2.4",
+                "@vee-validate/i18n": "^4.15.1",
+                "@vee-validate/rules": "^4.15.1",
                 "@vitejs/plugin-vue": "^6.0.0",
+                "@vuepic/vue-datepicker": "^12.1.0",
                 "axios": "^1.15.2",
                 "concurrently": "^9.0.1",
                 "laravel-vite-plugin": "^3.0.1",
                 "sass": "^1.99.0",
                 "tailwindcss": "^4.2.4",
-                "vite": "^8.0.0"
+                "vee-validate": "^4.15.1",
+                "vite": "^8.0.0",
+                "vue": "^3.5.0",
+                "vue-multiselect": "^3.5.0"
             }
         }
 
@@ -109,6 +116,58 @@ final class PackageJsonEditorTest extends TestCase
         self::assertSame('^4.2.4', $decoded['devDependencies']['tailwindcss']);
     }
 
+    public function testPackageDeclaredInDependenciesIsNotDuplicatedInDevDependencies(): void
+    {
+        $input = json_encode([
+            'devDependencies' => [
+                'vite' => '^8.0.0',
+            ],
+            'dependencies' => [
+                'tailwindcss' => '^4.3.3',
+            ],
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+
+        $result = $this->packageJsonEditor->installAdminUi($input);
+        $decoded = json_decode($result, true);
+
+        self::assertArrayNotHasKey('tailwindcss', $decoded['devDependencies']);
+        self::assertSame(['tailwindcss' => '^4.3.3'], $decoded['dependencies']);
+    }
+
+    public function testLowerVersionInDependenciesIsBumpedInPlace(): void
+    {
+        $input = json_encode([
+            'dependencies' => [
+                'vue' => '^3.5.0',
+                'tailwindcss' => '^4.0.0',
+            ],
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+
+        $result = $this->packageJsonEditor->installAdminUi($input);
+        $decoded = json_decode($result, true);
+
+        self::assertSame(['vue' => '^3.5.0', 'tailwindcss' => '^4.2.4'], $decoded['dependencies']);
+        self::assertArrayNotHasKey('tailwindcss', $decoded['devDependencies']);
+    }
+
+    public function testExistingDevDependencyIsBumpedWhenAlsoDeclaredInDependencies(): void
+    {
+        $input = json_encode([
+            'devDependencies' => [
+                'tailwindcss' => '^4.0.0',
+            ],
+            'dependencies' => [
+                'tailwindcss' => '^4.0.0',
+            ],
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+
+        $result = $this->packageJsonEditor->installAdminUi($input);
+        $decoded = json_decode($result, true);
+
+        self::assertSame('^4.2.4', $decoded['devDependencies']['tailwindcss']);
+        self::assertSame('^4.2.4', $decoded['dependencies']['tailwindcss']);
+    }
+
     public function testDevDependenciesAreSortedScopedFirstThenAlphabetical(): void
     {
         $result = $this->packageJsonEditor->installAdminUi(self::BASE_PACKAGE_JSON);
@@ -117,14 +176,21 @@ final class PackageJsonEditorTest extends TestCase
         self::assertSame(
             [
                 '@dejwcake/craftable',
+                '@kyvg/vue3-notification',
                 '@tailwindcss/vite',
+                '@vee-validate/i18n',
+                '@vee-validate/rules',
                 '@vitejs/plugin-vue',
+                '@vuepic/vue-datepicker',
                 'axios',
                 'concurrently',
                 'laravel-vite-plugin',
                 'sass',
                 'tailwindcss',
+                'vee-validate',
                 'vite',
+                'vue',
+                'vue-multiselect',
             ],
             array_keys($decoded['devDependencies']),
         );
