@@ -19,6 +19,7 @@ import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
 import ProfileForm from '@craftable/account/ProfileForm.vue';
 import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
 import TwoFactorSettings from '@craftable/account/TwoFactorSettings.vue';
+import PasskeySettings from '@craftable/account/PasskeySettings.vue';
 //-- Do not delete me :) I'm used for auto-generation js import begin --
 //-- Do not delete me :) I'm used for auto-generation js import end --
 
@@ -43,6 +44,7 @@ app.component('TwoFactorChallengeForm', TwoFactorChallengeForm);
 app.component('PasswordChangeForm', PasswordChangeForm);
 app.component('ProfileForm', ProfileForm);
 app.component('TwoFactorSettings', TwoFactorSettings);
+app.component('PasskeySettings', PasskeySettings);
 
 app.component('TranslationListing', TranslationListing);
 

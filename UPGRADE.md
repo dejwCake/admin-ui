@@ -25,6 +25,17 @@ app.component('TwoFactorSettings', TwoFactorSettings);
 `ProfileForm` and `PasswordChangeForm` are only needed by projects on admin-auth's profile pages;
 `TwoFactorChallengeForm` and `TwoFactorSettings` by every project on the matching admin-auth.
 
+### Passkeys component in the install stub
+
+The stub also registers `PasskeySettings`, the component of admin-auth's passkeys page. Existing
+projects add, with the matching admin-auth and `@dejwcake/craftable` versions:
+
+```js
+import PasskeySettings from '@craftable/account/PasskeySettings.vue';
+
+app.component('PasskeySettings', PasskeySettings);
+```
+
 ## 2.6.0: Strict package managers (pnpm)
 
 ### Directly imported frontend packages in package.json
