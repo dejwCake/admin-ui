@@ -13,17 +13,21 @@ two-factor pages, imported by path so a project copy at `resources/js/admin/acco
 import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
 import ProfileForm from '@craftable/account/ProfileForm.vue';
 import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
+import TwoFactorOverview from '@craftable/account/TwoFactorOverview.vue';
 import TwoFactorSettings from '@craftable/account/TwoFactorSettings.vue';
 
 app.component('TwoFactorChallengeForm', TwoFactorChallengeForm);
 
 app.component('PasswordChangeForm', PasswordChangeForm);
 app.component('ProfileForm', ProfileForm);
+app.component('TwoFactorOverview', TwoFactorOverview);
 app.component('TwoFactorSettings', TwoFactorSettings);
 ```
 
 `ProfileForm` and `PasswordChangeForm` are only needed by projects on admin-auth's profile pages;
-`TwoFactorChallengeForm` and `TwoFactorSettings` by every project on the matching admin-auth.
+`TwoFactorChallengeForm`, `TwoFactorOverview` and `TwoFactorSettings` by every project on the
+matching admin-auth (`TwoFactorOverview` is the two-factor settings page, `TwoFactorSettings` its
+authenticator-app section).
 
 ### Passkeys component in the install stub
 

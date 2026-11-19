@@ -18,6 +18,7 @@ import ActivationError from '@craftable/auth/ActivationError.vue';
 import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
 import ProfileForm from '@craftable/account/ProfileForm.vue';
 import PasswordChangeForm from '@craftable/account/PasswordChangeForm.vue';
+import TwoFactorOverview from '@craftable/account/TwoFactorOverview.vue';
 import TwoFactorSettings from '@craftable/account/TwoFactorSettings.vue';
 import PasskeySettings from '@craftable/account/PasskeySettings.vue';
 //-- Do not delete me :) I'm used for auto-generation js import begin --
@@ -43,6 +44,7 @@ app.component('TwoFactorChallengeForm', TwoFactorChallengeForm);
 
 app.component('PasswordChangeForm', PasswordChangeForm);
 app.component('ProfileForm', ProfileForm);
+app.component('TwoFactorOverview', TwoFactorOverview);
 app.component('TwoFactorSettings', TwoFactorSettings);
 app.component('PasskeySettings', PasskeySettings);
 
