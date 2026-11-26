@@ -1,13 +1,15 @@
 # Upgrade Guide: v1 to v2
 
-## 2.7.0 (unreleased)
+## Upgrade to 2.7.0
 
 ### Account and two-factor components in the install stub
 
 The `admin.js` install stub registers the components of admin-auth's profile, password and
 two-factor pages, imported by path so a project copy at `resources/js/admin/account/` or
 `resources/js/admin/auth/` overrides them. Existing projects add the same lines to
-`resources/js/admin/admin.js` (they need the matching `@dejwcake/craftable` version):
+`resources/js/admin/admin.js`. They need `@dejwcake/craftable` ^2.6.0 and `dejwcake/admin-auth` ^2.2.0;
+`admin-ui:install` raises the `@dejwcake/craftable` constraint in `package.json` to `^2.6.0`, an
+existing project raises it by hand:
 
 ```js
 import TwoFactorChallengeForm from '@craftable/auth/TwoFactorChallengeForm.vue';
@@ -25,14 +27,14 @@ app.component('TwoFactorSettings', TwoFactorSettings);
 ```
 
 `ProfileForm` and `PasswordChangeForm` are only needed by projects on admin-auth's profile pages;
-`TwoFactorChallengeForm`, `TwoFactorOverview` and `TwoFactorSettings` by every project on the
-matching admin-auth (`TwoFactorOverview` is the two-factor settings page, `TwoFactorSettings` its
+`TwoFactorChallengeForm`, `TwoFactorOverview` and `TwoFactorSettings` by every project on
+admin-auth ^2.2.0 (`TwoFactorOverview` is the two-factor settings page, `TwoFactorSettings` its
 authenticator-app section).
 
 ### Passkeys component in the install stub
 
 The stub also registers `PasskeySettings`, the component of admin-auth's passkeys page. Existing
-projects add, with the matching admin-auth and `@dejwcake/craftable` versions:
+projects add, with the same versions (`@dejwcake/craftable` ^2.6.0, `dejwcake/admin-auth` ^2.2.0):
 
 ```js
 import PasskeySettings from '@craftable/account/PasskeySettings.vue';

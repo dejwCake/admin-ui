@@ -9,7 +9,7 @@ final readonly class PackageJsonEditor
     // The install stubs import some @dejwcake/craftable dependencies directly, so they are declared
     // here as well: strict package managers (pnpm) do not expose undeclared packages to the project.
     private const array REQUIRED_DEV_DEPENDENCIES = [
-        '@dejwcake/craftable' => '^2.5.0',
+        '@dejwcake/craftable' => '^2.6.0',
         '@kyvg/vue3-notification' => '^3.4.2',
         '@tailwindcss/vite' => '^4.2.4',
         '@vee-validate/i18n' => '^4.15.1',

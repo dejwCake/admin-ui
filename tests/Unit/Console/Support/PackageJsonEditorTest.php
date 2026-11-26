@@ -42,7 +42,7 @@ final class PackageJsonEditorTest extends TestCase
                 "publish:craftable-components": "craftable-publish-components"
             },
             "devDependencies": {
-                "@dejwcake/craftable": "^2.5.0",
+                "@dejwcake/craftable": "^2.6.0",
                 "@kyvg/vue3-notification": "^3.4.2",
                 "@tailwindcss/vite": "^4.2.4",
                 "@vee-validate/i18n": "^4.15.1",
